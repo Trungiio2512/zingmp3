@@ -11,12 +11,15 @@ function Song({
     medium = false,
     center = false,
     time = false,
-    className,
+    hasBorderBot = false,
     rank = false,
     song = false,
     right = false,
-    album,
+    album = false,
+    smallSizeImg = false,
+    className,
     data,
+    rankNumber,
 }) {
     // console.log(data);
 
@@ -29,14 +32,16 @@ function Song({
         center,
         right,
         time,
+        hasBorderBot,
+        smallSizeImg,
     });
 
     return (
         <div className={classes}>
             <div className={cx("media-left")}>
-                {rank && (
+                {rank && !!rankNumber && (
                     <div className={cx("rank")}>
-                        <span className={cx("rank-number")}>1</span>
+                        <span className={cx("rank-number", `rank-number--${rankNumber}`)}>{rankNumber}</span>
                         <span className={cx("rank-sort")}>
                             <FontAwesomeIcon className={cx("icon")} icon={faMinus} />
                         </span>
@@ -62,7 +67,7 @@ function Song({
                                 <img src={images.albumDick} alt="" />
                             </figure>
                             <div className={cx("thumb-actions")}>
-                                <figure className={cx("thumb-img--full", "thumb-img")}>
+                                <figure className={cx("thumb-img")}>
                                     <img src={data?.thumbnailM} alt={data?.title} />
                                 </figure>
                                 <Button className={cx("thumb-control")}>

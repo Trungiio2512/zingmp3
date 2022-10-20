@@ -1,3 +1,4 @@
+@use "../../../scss/media-queries.scss" as *;
 @mixin dfCenter {
     display: flex;
     align-items: center;
@@ -10,9 +11,14 @@
     padding: 12px;
 }
 
+.media.hasBorderBot {
+    border-bottom-color: var(--purple-primary);
+}
+
 .media {
     @include dfCenter;
     width: 100%;
+    border: 1px solid transparent;
     border-radius: 8px;
     &-left {
         flex: 1;
@@ -22,6 +28,9 @@
 
     &-center {
         flex: 1;
+        @include lt-lg {
+            flex-grow: 0;
+        }
     }
     &:hover .thumb-control {
         display: flex;
@@ -48,15 +57,25 @@
 .rank {
     @include dfCenter;
     &-number {
-        -webkit-text-stroke: 1px #e35050;
-        font-size: 4rem;
+        -webkit-text-stroke: 1px var(--text-primary);
+        font-size: 3rem;
         font-weight: 700;
         color: transparent;
-        padding: 0 15px;
+        min-width: 60px;
+        text-align: center;
     }
     &-sort {
-        margin-right: 15px;
-        margin-left: 5px;
+        margin-left: 4px;
+    }
+
+    &-number--1 {
+        -webkit-text-stroke: 1px var(--blue);
+    }
+    &-number--2 {
+        -webkit-text-stroke: 1px var(--green);
+    }
+    &-number--3 {
+        -webkit-text-stroke: 1px var(--red);
     }
 }
 
@@ -95,15 +114,23 @@
 }
 
 //thumb
+.media.smallSizeImg {
+    .thumb {
+        .thumb-img.thumb-song {
+            width: 40px;
+            height: 40px;
+        }
+    }
+}
 .thumb {
     margin: 0 15px;
     position: relative;
     &-img {
-        border-radius: 8px;
         overflow: hidden;
         cursor: pointer;
     }
     img {
+        border-radius: 8px;
         width: 100%;
         height: 100%;
     }
@@ -118,10 +145,10 @@
         transition: all 0.3s;
     }
 
-    .thumb-img--full {
-        width: 100%;
-        height: 100%;
-    }
+    // .thumb-img--full.thumb-img {
+    //     width: 100%;
+    //     height: 100%;
+    // }
 
     &-control {
         position: absolute;
@@ -152,6 +179,9 @@
     white-space: nowrap;
     overflow: hidden;
     max-width: 100%;
+    @include lt-lg {
+        display: none;
+    }
 }
 
 //right

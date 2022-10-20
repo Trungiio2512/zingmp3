@@ -106,7 +106,7 @@ function Player({ data }) {
                 >
                     <FontAwesomeIcon icon={faListOl} />
                 </Button>
-                <Modal isOpen={showListMusicLove} onRequestClose={handleShowListMusicLove}>
+                <Modal isOpen={showListMusicLove} fromRight>
                     <Button>close</Button>
                 </Modal>
             </div>

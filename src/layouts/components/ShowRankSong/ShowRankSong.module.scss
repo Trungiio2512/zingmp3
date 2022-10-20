@@ -1,0 +1,19 @@
+.rankSong {
+    &-topsong__show {
+        // width: 100%;
+        margin-top: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &-topsong__btn {
+        color: var(--text-primary);
+        border: 1px solid currentColor;
+        padding: 8px 24px;
+        border-radius: 24px;
+        &:hover {
+            background-color: var(--second-bg);
+        }
+    }
+}
