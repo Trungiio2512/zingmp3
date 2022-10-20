@@ -1,0 +1,24 @@
+.section-wrapper {
+    margin-bottom: 36px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    .section-title {
+        font-size: 2.4rem;
+        font-weight: 700;
+        flex: 1;
+    }
+    .section-btn {
+        font-size: 1.6rem;
+        font-weight: 500;
+        &:hover {
+            color: var(--purple-primary);
+        }
+    }
+}
+.section-body {
+    margin: 0 -15px;
+}

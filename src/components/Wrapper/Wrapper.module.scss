@@ -1,0 +1,9 @@
+.wrapper {
+    width: 100%;
+    max-height: calc(100vh - 200px);
+    background-color: var(--player-bg);
+    padding: 12px;
+    overflow-y: overlay;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 10px 15px, rgba(0, 0, 0, 0.03) 0 10px 15px;
+}

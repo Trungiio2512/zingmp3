@@ -1,0 +1,33 @@
+//tab-1
+.tab1 {
+    &-control {
+        display: flex;
+    }
+
+    &-control__btn {
+        padding: 4px 24px;
+        border: 1px solid var(--second-bg);
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        border-radius: 12px;
+        letter-spacing: 0.05rem;
+    }
+
+    &-body {
+        margin-top: 20px;
+    }
+
+    &-container {
+        display: none;
+    }
+}
+
+.tab1-control__btn.tab1-control__btn--active {
+    background-color: var(--purple-primary);
+    border-color: var(--purple-primary);
+    color: var(--white);
+}
+
+.tab1-container.tab1-container--active {
+    display: block;
+}

@@ -1,0 +1,68 @@
+@use "../../../scss/media-queries.scss" as *;
+
+.wrapper {
+    width: 240px;
+    background-color: #ccc;
+    height: 100%;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    @include lt-lg {
+        width: 70px;
+    }
+
+    @include mobile {
+        display: none;
+        width: 240px;
+        background-color: #ccc;
+    }
+}
+
+.wrapper.mobile {
+    @include mobile {
+        // width: 100%;
+        // display: none;
+        display: block;
+    }
+}
+
+.sidebar-logo {
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &__link {
+        display: block;
+        width: 120px;
+        padding: 8px;
+    }
+    &__img,
+    &--mobile {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+    &__img {
+        @include lt-lg {
+            display: none;
+        }
+        @include mobile {
+            display: block;
+        }
+    }
+
+    &--mobile {
+        display: none;
+        @include lt-lg {
+            display: block;
+        }
+
+        @include mobile {
+            display: none;
+        }
+    }
+}
+
+.sidebar-menu {
+}

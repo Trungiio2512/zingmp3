@@ -1,0 +1,177 @@
+@mixin dfCenter {
+    display: flex;
+    align-items: center;
+}
+
+.media.small {
+    padding: 10px;
+}
+.media.medium {
+    padding: 12px;
+}
+
+.media {
+    @include dfCenter;
+    width: 100%;
+    border-radius: 8px;
+    &-left {
+        flex: 1;
+        width: 50%;
+        @include dfCenter;
+    }
+
+    &-center {
+        flex: 1;
+    }
+    &:hover .thumb-control {
+        display: flex;
+    }
+    &:hover .thumb-actions {
+        transform: translateX(-12px);
+    }
+    &:hover {
+        background-color: var(--second-bg);
+    }
+
+    &:hover .thumb-img.thumb-album {
+        transform: rotate(120deg);
+    }
+    &-right {
+        flex-basis: auto;
+        flex-grow: 0;
+        flex-shrink: 0;
+    }
+}
+
+//left
+
+.rank {
+    @include dfCenter;
+    &-number {
+        -webkit-text-stroke: 1px #e35050;
+        font-size: 4rem;
+        font-weight: 700;
+        color: transparent;
+        padding: 0 15px;
+    }
+    &-sort {
+        margin-right: 15px;
+        margin-left: 5px;
+    }
+}
+
+.info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    &-name {
+        cursor: default;
+        font-weight: 500;
+    }
+    &-artists {
+        overflow: hidden;
+    }
+    &-artists__name {
+        font-size: 1.3rem;
+        &:hover {
+            text-decoration: underline;
+            color: var(--purple-primary);
+        }
+    }
+    &-artists__icon {
+        font-size: 1.2rem;
+    }
+    &-name,
+    &-artists__name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+.info-artists__name ~ .info-artists__name {
+    margin-left: 4px;
+}
+
+//thumb
+.thumb {
+    margin: 0 15px;
+    position: relative;
+    &-img {
+        border-radius: 8px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+    img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .thumb-img.thumb-song {
+        width: 60px;
+        height: 60px;
+    }
+    .thumb-img.thumb-album {
+        width: 80px;
+        height: 80px;
+        transition: all 0.3s;
+    }
+
+    .thumb-img--full {
+        width: 100%;
+        height: 100%;
+    }
+
+    &-control {
+        position: absolute;
+        inset: 0;
+        cursor: pointer;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    &-actions {
+        transition: all 0.4s;
+        position: absolute;
+        width: 87px;
+        height: 87px;
+        left: -12px;
+        top: -4px;
+    }
+}
+//center
+
+.song-name {
+    text-align: left;
+    width: 100%;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+//right
+
+.media:hover .media-right .media-right__time {
+    display: none;
+}
+
+.media:hover .media-right .media-right__action {
+    display: flex;
+}
+.media-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    &__time {
+        font-size: 1.4rem;
+    }
+
+    &__action {
+        display: none;
+    }
+}

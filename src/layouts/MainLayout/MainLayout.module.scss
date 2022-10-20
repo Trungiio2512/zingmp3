@@ -1,0 +1,46 @@
+@use "../../scss/media-queries.scss" as *;
+.wrapper {
+    position: fixed;
+    inset: 0;
+    background-color: var(--layout-bg);
+    // background-color: #ccc;
+}
+
+.container {
+    display: flex;
+    height: 100%;
+}
+
+.content {
+    position: relative;
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-left: 240px;
+    display: flex;
+    flex-direction: column;
+    margin-top: var(--header-height);
+    padding: 0 var(--padding-content);
+    margin-bottom: calc(var(--player-height) + 20px);
+
+    @include lt-lg {
+        margin-left: 70px;
+    }
+    @include lt-sm {
+        padding: 0;
+    }
+
+    @include mobile {
+        margin-left: 0;
+    }
+}
+
+.player {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    height: var(--player-height);
+    background-color: var(--player-bg);
+}

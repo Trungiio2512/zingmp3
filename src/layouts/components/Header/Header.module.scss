@@ -1,0 +1,66 @@
+@use "../../../scss/media-queries.scss" as *;
+
+.wrapper {
+    height: var(--header-height);
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: calc(100% - 240px);
+    display: flex;
+    justify-content: space-between;
+    padding: 15px var(--padding-content);
+    background-color: var(--layout-bg);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.08);
+    z-index: 9;
+
+    @include lt-lg {
+        width: calc(100% - 70px);
+    }
+    @include mobile {
+        width: 100%;
+    }
+}
+//menu
+
+.header-menu {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 15px;
+    font-size: 1.8rem;
+    // justify-content: center;
+    // padding: 15px;
+    margin-right: 24px;
+    display: none;
+    @include mobile {
+        display: flex;
+    }
+}
+
+.header-menu-sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    @include mobile {
+        z-index: 999;
+        transform: translateX(0);
+        width: 240px;
+        height: calc(100vh - var(--player-height));
+    }
+}
+
+// search
+
+//actions
+.header-actions {
+    display: flex;
+
+    &__btn ~ &__btn {
+        margin-left: 12px;
+    }
+
+    @include mobile {
+        display: none;
+    }
+}

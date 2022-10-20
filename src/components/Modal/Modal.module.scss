@@ -1,0 +1,74 @@
+@mixin dfCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin FadeIn {
+    animation: fadeIn 0.3s linear;
+}
+
+@mixin GrowUp {
+    animation: grow-up 0.3s linear;
+}
+
+@mixin FadeOut {
+    animation: fadeOut 0.3s linear forwards;
+}
+@mixin GorwDown {
+    animation: grow-down 0.3s linear forwards;
+}
+
+.wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: calc(100% - var(--player-height));
+    z-index: 999;
+    display: flex;
+}
+
+.wrapper.closesing .overlay {
+    @include FadeOut;
+}
+
+.wrapper.closesing .container {
+    @include FadeOut;
+}
+
+.wrapper.fromRight .container {
+}
+.overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba($color: #000, $alpha: 0.5);
+    @include FadeIn;
+}
+
+.container {
+    position: relative;
+    min-width: 400px;
+    height: 100%;
+    background-color: #fff;
+    padding: 48px;
+    box-shadow: 3px 0 2px rgba(0, 0, 0, 0.3);
+    @include FadeIn;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}

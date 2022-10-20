@@ -1,0 +1,102 @@
+@import "normalize.css";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+:root {
+    --white: #fff;
+    --black: #32323d;
+    --yellow: #f8e71c;
+    --blue: #4a90e2;
+    --green: #50e3c2;
+    --red: #e35050;
+    --gray: #dbdbdb;
+    --background-tooltip: #e8e8e8;
+
+    --layout-bg: #f9dbdb;
+    --sidebar-bg: rgba(255, 255, 255, 0.3);
+    --popup-bg: #fbd3d2;
+    --second-bg: rgba(0, 0, 0, 0.05);
+    --third-bg: rgba(0, 0, 0, 0.2);
+    --primary-bg: #fde8e8;
+    --player-bg: #f9c6c5;
+    --artist-layout-bg: rgba(249, 219, 219, 0.8);
+    --purple-primary: #b72479;
+
+    --text-primary: #32323d;
+    --text-secondary: rgba(255, 255, 255, 0.05);
+    --text-item-hover: #b72479;
+    --link-text-hover: #b72479;
+    --text-placeholder: #dadada;
+    --search-text: #282828;
+    --text-placeholder: #757575;
+    --setting-icon-text: #495057;
+    --navigation-text: #32323d;
+
+    --header-height: 70px;
+    --player-height: 90px;
+    --padding-content: 48px;
+    --search-width: 540px;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 1.6rem;
+    font-family: "Inter", sans-serif;
+}
+
+body {
+    .tippy-box {
+        background-color: var(--black);
+        font-size: 1.2rem;
+        border-radius: 8px;
+        color: var(--white);
+    }
+    .tippy-arrow {
+        background-color: var(--black);
+    }
+
+    // .tippy-content {
+    //     padding: 6px 9px 8px;
+    // }
+}
+
+html *::-webkit-scrollbar {
+    width: 6px;
+    // background-color: var(--purple-primary);
+}
+
+html *::-webkit-scrollbar-track {
+    background-color: var(--layout-bg);
+    border-radius: 4px;
+}
+
+html *::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: var(--artist-layout-bg);
+    -webkit-box-shadow: inset 0 0 6px rgb(0 0 0 / 50%);
+}
+
+input,
+button,
+[tabindex] {
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+a {
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+}

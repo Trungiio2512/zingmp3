@@ -1,0 +1,121 @@
+@use "../../../scss/media-queries.scss" as *;
+$search-btn-width: 40px;
+
+.wrapper {
+    width: 100%;
+}
+
+.search,
+.search-result {
+    width: 100%;
+    min-width: 540px;
+
+    // @include mobile {
+    //     width: 100%;
+    // }
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    border-radius: 92px;
+    background-color: rgba(22, 24, 35, 0.06);
+    border: 1px solid transparent;
+    caret-color: var(--primary);
+    position: relative;
+
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 1px;
+        height: calc(var(--search-height) - 18px);
+        right: $search-btn-width;
+        top: 9px;
+        background-color: rgba(22, 24, 35, 0.12);
+    }
+
+    input {
+        flex: 1;
+        height: 100%;
+        padding: 0 40px 0 18px;
+        font-size: 1.6rem;
+        font-weight: 500;
+        font-family: var(--font-family);
+    }
+
+    &:focus-within {
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    }
+
+    input:not(:placeholder-shown) ~ .search-btn {
+        color: var(--purple-primary);
+    }
+}
+
+.search-title {
+    display: block;
+    font-size: 1.6rem;
+    color: var(--text-color);
+    padding-left: 12px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.clear,
+.loading {
+    position: absolute;
+    right: calc($search-btn-width + 13px);
+    top: calc(var(--search-height) / 2 - 8px);
+    color: #a7a7ab;
+}
+
+.loading {
+    animation: spinner 0.8s ease-in infinite;
+}
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.search-btn {
+    width: $search-btn-width;
+    height: 100%;
+    font-size: 2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    color: rgba(22, 24, 35, 0.34);
+
+    &:hover {
+        background: rgba(22, 24, 35, 0.03);
+    }
+    &:active {
+        background: rgba(22, 24, 35, 0.06);
+    }
+}
+
+.search-heading {
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+//search result
+.search-item {
+    display: flex;
+    width: 100%;
+    padding: 12px 24px;
+    color: var(--text-primary);
+    border-radius: 8px;
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.06);
+    }
+    &__icon {
+        font-size: 1.8rem;
+        margin-right: 12px;
+    }
+    &__title {
+        font-size: 1.6rem;
+    }
+}
