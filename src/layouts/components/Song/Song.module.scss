@@ -28,6 +28,7 @@
 
     &-center {
         flex: 1;
+        width: 30%;
         @include lt-lg {
             flex-grow: 0;
         }
@@ -61,7 +62,7 @@
         font-size: 3rem;
         font-weight: 700;
         color: transparent;
-        min-width: 60px;
+        min-width: 32px;
         text-align: center;
     }
     &-sort {
@@ -87,10 +88,13 @@
     &-name {
         cursor: default;
         font-weight: 500;
+        font-size: 1.4rem;
     }
-    &-artists {
-        overflow: hidden;
-    }
+    // &-artists {
+    //     overflow: hidden;
+    //     white-space: nowrap;
+    //     text-overflow: ellipsis;
+    // }
     &-artists__name {
         font-size: 1.3rem;
         &:hover {
@@ -102,6 +106,7 @@
         font-size: 1.2rem;
     }
     &-name,
+    &-artists,
     &-artists__name {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -158,6 +163,7 @@
         align-items: center;
         justify-content: center;
         border-radius: 8px;
+        color: white;
         background-color: rgba(0, 0, 0, 0.2);
     }
 
@@ -179,6 +185,10 @@
     white-space: nowrap;
     overflow: hidden;
     max-width: 100%;
+    &:hover {
+        text-decoration: underline;
+        color: var(--purple-primary);
+    }
     @include lt-lg {
         display: none;
     }

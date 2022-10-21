@@ -12,7 +12,7 @@ function MainLayout({ children }) {
                     {children}
                 </div>
             </div>
-            <Player />
+            {/* <Player /> */}
         </div>
     );
 }

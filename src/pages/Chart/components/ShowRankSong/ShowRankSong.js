@@ -9,7 +9,7 @@ import Button from "~/components/Button";
 const cx = classNames.bind(styles);
 
 function ShowRankSong({ data, rankNumber }) {
-    console.log(data);
+    // console.log(data);
     const [showAll, setShowAll] = useState(true);
     const [countSong, setCountSong] = useState(rankNumber);
 
@@ -44,14 +44,11 @@ function ShowRankSong({ data, rankNumber }) {
                 </Grid>
                 <div className={cx("rankSong-topsong__show")}>
                     {showAll ? (
-                        <Button
-                            className={cx("rankSong-topsong__btn")}
-                            onClick={() => handleShowAll(data?.items.length)}
-                        >
+                        <Button square onClick={() => handleShowAll(data?.items.length)}>
                             Xem top {data?.items.length}
                         </Button>
                     ) : (
-                        <Button className={cx("rankSong-topsong__btn")} onClick={() => handleShowAll(rankNumber)}>
+                        <Button square onClick={() => handleShowAll(rankNumber)}>
                             Xem top {rankNumber}
                         </Button>
                     )}

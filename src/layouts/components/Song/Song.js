@@ -22,15 +22,16 @@ function Song({
     rankNumber,
 }) {
     // console.log(data);
+    // console.log(Math.floor(data?.duration / 60));
 
     const classes = cx("media", {
         [className]: className,
         medium,
         small,
-        song,
+        // song,
         album,
         center,
-        right,
+        // right,
         time,
         hasBorderBot,
         smallSizeImg,
@@ -91,7 +92,7 @@ function Song({
             </div>
             {center && (
                 <div className={cx("media-center")}>
-                    <Link to className={cx("song-name")}>
+                    <Link to={data?.link} className={cx("song-name")}>
                         {data?.title}
                         {"(Single)"}
                     </Link>
@@ -104,7 +105,14 @@ function Song({
                             <FontAwesomeIcon icon={faEllipsisH} />
                         </Button>
                     </div>
-                    {time && <span className={cx("media-right__time")}>02:35</span>}
+                    {time && (
+                        <span className={cx("media-right__time")}>
+                            {Math.floor(data?.duration / 60) < 10
+                                ? `0${Math.floor(data?.duration / 60)}`
+                                : Math.floor(data?.duration / 60)}
+                            : {data?.duration % 60 < 10 ? `0${data?.duration % 60}` : data?.duration % 60}
+                        </span>
+                    )}
                 </div>
             )}
         </div>

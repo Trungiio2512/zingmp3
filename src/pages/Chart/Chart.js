@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import ShowRankSong from "~/layouts/components/ShowRankSong";
+import ShowRankSong from "~/pages/Chart/components/ShowRankSong";
 import Loading from "~/layouts/components/Loading";
 import httpRequest from "~/untils/httpRequest";
+import WeekRankSong from "./components/WeekRankSong";
 function Chart() {
     const [data, setData] = useState("");
     const [isLoading, setLoading] = useState(true);
@@ -13,6 +14,7 @@ function Chart() {
                 const res = await httpRequest.get("charthome");
                 setData(res.data);
                 setLoading(false);
+                // console.log(res.data);
             } catch (error) {
                 console.log(error.response);
                 setFailed(true);
@@ -20,7 +22,6 @@ function Chart() {
         };
         fecthApi();
     }, []);
-    // console.log(data);
     if (isLoading) {
         return <Loading />;
     } else if (isFailed) {
@@ -29,6 +30,7 @@ function Chart() {
         return (
             <div>
                 <ShowRankSong data={data?.RTChart} rankNumber={10} />
+                <WeekRankSong data={data?.weekChart} rankNumber={5} />
             </div>
         );
     }

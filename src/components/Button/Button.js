@@ -15,6 +15,8 @@ const Button = forwardRef(
             primary,
             secondary,
             circle,
+            circleSmall,
+            square,
             rightIcon,
             outline,
             hover,
@@ -56,6 +58,8 @@ const Button = forwardRef(
             disabled,
             outline,
             hover,
+            square,
+            circleSmall
         });
 
         return (

@@ -8,7 +8,7 @@ $search-btn-width: 40px;
 .search,
 .search-result {
     width: 100%;
-    min-width: 540px;
+    max-width: 540px;
 
     // @include mobile {
     //     width: 100%;
