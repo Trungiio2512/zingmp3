@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import ShowRankSong from "~/pages/Chart/components/ShowRankSong";
+import ShowRankSong from "~/pages/components/ShowRankSong";
 import Loading from "~/layouts/components/Loading";
 import httpRequest from "~/untils/httpRequest";
-import WeekRankSong from "./components/WeekRankSong";
+import WeekRankSong from "../components/WeekRankSong";
 function Chart() {
     const [data, setData] = useState("");
     const [isLoading, setLoading] = useState(true);

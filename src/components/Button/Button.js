@@ -59,22 +59,14 @@ const Button = forwardRef(
             outline,
             hover,
             square,
-            circleSmall
+            circleSmall,
         });
 
         return (
             <Comp className={classes} {...props} ref={ref}>
-                {leftIcon && (
-                    <span style={{ marginRight: 12 }} className={cx("icon")}>
-                        {leftIcon}
-                    </span>
-                )}
+                {leftIcon && <span className={cx("icon")}>{leftIcon}</span>}
                 <span className={cx("title")}>{children}</span>
-                {rightIcon && (
-                    <span style={{ marginLeft: 12 }} className={cx("icon")}>
-                        {rightIcon}
-                    </span>
-                )}
+                {rightIcon && <span className={cx("icon")}>{rightIcon}</span>}
             </Comp>
         );
     },

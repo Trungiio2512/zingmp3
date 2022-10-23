@@ -1,0 +1,28 @@
+.btn-slider-playlist {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--third-bg);
+    position: absolute;
+    top: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    font-size: 1.6rem;
+    color: var(--text-color);
+}
+
+.btn-slider-playlist.prev {
+    left: -5px;
+}
+.btn-slider-playlist.next {
+    right: -5px;
+}
+
+.btn-slider-playlist.middle {
+    transform: translateY(-50%);
+}
+.btn-slider-playlist.standardMiddle {
+    transform: translateY(-100%);
+}

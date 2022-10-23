@@ -20,8 +20,9 @@ function Song({
     className,
     data,
     rankNumber,
+    check = false,
 }) {
-    // console.log(data);
+    // console.log(data?.artists);
     // console.log(Math.floor(data?.duration / 60));
 
     const classes = cx("media", {
@@ -33,6 +34,7 @@ function Song({
         center,
         // right,
         time,
+        // addPlaylist,
         hasBorderBot,
         smallSizeImg,
     });
@@ -40,6 +42,11 @@ function Song({
     return (
         <div className={classes}>
             <div className={cx("media-left")}>
+                {check && (
+                    <div className={cx("checkbox")}>
+                        <input type="checkbox" />
+                    </div>
+                )}
                 {rank && !!rankNumber && (
                     <div className={cx("rank")}>
                         <span className={cx("rank-number", `rank-number--${rankNumber}`)}>{rankNumber}</span>
@@ -81,20 +88,20 @@ function Song({
                 <div className={cx("info")}>
                     <h4 className={cx("info-name")}>{data?.title}</h4>
                     <p className={cx("info-artists")}>
-                        {data?.artists.map((artist, index) => (
-                            <Link to={artist.link} className={cx("info-artists__name")} key={index}>
-                                {artist?.name}
-                                <FontAwesomeIcon icon={faStar} className={cx("info-artists__icon")} />
-                            </Link>
-                        ))}
+                        {data?.artists &&
+                            data?.artists.map((artist, index) => (
+                                <Link to={artist?.link} className={cx("info-artists__name")} key={index}>
+                                    {artist?.name}
+                                    <FontAwesomeIcon icon={faStar} className={cx("info-artists__icon")} />
+                                </Link>
+                            ))}
                     </p>
                 </div>
             </div>
             {center && (
                 <div className={cx("media-center")}>
-                    <Link to={data?.link} className={cx("song-name")}>
-                        {data?.title}
-                        {"(Single)"}
+                    <Link to={data?.album?.link} className={cx("song-name")}>
+                        {data?.album?.title}
                     </Link>
                 </div>
             )}

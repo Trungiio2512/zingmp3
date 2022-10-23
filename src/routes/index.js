@@ -4,6 +4,8 @@ import Top100 from "~/pages/Top100";
 import Radio from "~/pages/Radio";
 import NewMusic from "~/pages/NewMusic";
 import Category from "~/pages/Category";
+import DetailPlaylist from "~/pages/DetailPlaylist";
+import DetailAlbum from "~/pages/DetailAlbum";
 
 const publicRoute = [
     { path: "/", component: Home },
@@ -12,6 +14,8 @@ const publicRoute = [
     { path: "/top100", component: Top100 },
     { path: "/new-music", component: NewMusic },
     { path: "/category", component: Category },
+    { path: "/album/:nameAlbum/:id", component: DetailAlbum },
+    { path: "/playlist/:namePlaylist/:id", component: DetailPlaylist },
 ];
 
 export { publicRoute };

@@ -7,7 +7,7 @@ import { useState } from "react";
 const cx = classNames.bind(styles);
 
 function Tab1({ data }) {
-    const [active, setActive] = useState(2);
+    const [active, setActive] = useState(1);
     const [songs, setSongs] = useState(data[0].song);
     const [albums, setAlbum] = useState(data[0].album);
     // console.log(data);

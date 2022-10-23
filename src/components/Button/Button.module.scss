@@ -7,7 +7,6 @@
     transition: all 0.2s;
     border: 1px solid transparent;
     cursor: pointer;
-    max-width: 140px;
     &.disabled {
         pointer-events: none;
         opacity: 0.5;

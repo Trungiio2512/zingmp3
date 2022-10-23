@@ -1,29 +1,17 @@
-import styles from "./Playlist.module.scss";
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
-import Button from "~/components/Button";
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import styles from "./Playlist.module.scss";
+import Thumb from "~/layouts/components/Thumb";
 
 const cx = classNames.bind(styles);
+
 function PlaylistItem({ data, title = false, subtitle = false, artists = false }) {
     // console.log(data);
     return (
         <div className={cx("card")}>
             <Link to={data?.link} className={cx("card-link")}>
-                <figure className={cx("card-img")}>
-                    <img alt={data?.title} src={data?.thumbnailM} />
-                    <div className={cx("card-control")}>
-                        <Button circle outline>
-                            <FontAwesomeIcon icon={faPlay} />
-                        </Button>
-                    </div>
-                    {artists && (
-                        <div className={cx("card-artists")}>
-                            <span className={cx("card-artists__name")}>mrs siro</span>
-                        </div>
-                    )}
-                </figure>
+                <Thumb title={data?.title} thumbNail={data?.thumbnailM} />
             </Link>
             <div className={cx("card-body")}>
                 {title && (
@@ -32,6 +20,15 @@ function PlaylistItem({ data, title = false, subtitle = false, artists = false }
                     </Link>
                 )}
                 {subtitle && <span className={cx("card-subtitle")}>{data?.sortDescription}</span>}
+                {artists && (
+                    <p className={cx("card-artists")}>
+                        {data.artists.map((artist) => (
+                            <Link to={artist?.link} className={cx("card-artist__name")} key={artist.name}>
+                                {artist?.name}
+                            </Link>
+                        ))}
+                    </p>
+                )}
             </div>
         </div>
     );

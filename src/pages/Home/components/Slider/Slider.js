@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 import styles from "./Slider.module.scss";
 import SliderItem from "./SliderItem";
-import Button from "./Button";
+import ButtonSlider from "~/components/Button/ButtonSlider";
 
 const cx = classNames.bind(styles);
 function SliderShow({ data }) {
@@ -18,8 +18,8 @@ function SliderShow({ data }) {
         autoplaySpeed: 5000,
         slidesToShow: 3,
         slidesToScroll: 3,
-        nextArrow: <Button next />,
-        prevArrow: <Button prev />,
+        nextArrow: <ButtonSlider middle next />,
+        prevArrow: <ButtonSlider middle prev />,
         responsive: [
             {
                 breakpoint: 1368,

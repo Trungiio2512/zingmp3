@@ -1,0 +1,158 @@
+@use "../../../scss/media-queries.scss" as *;
+.detail {
+}
+
+.media {
+    margin-bottom: 32px;
+    &-left {
+        float: left;
+        height: 100%;
+    }
+
+    &-right {
+        margin-left: 330px;
+    }
+}
+.media-left__thumb.isPlay {
+    border-radius: 50%;
+    overflow: hidden;
+    animation: spinner 4s linear infinite;
+}
+
+.media-left__thumb.isPaused {
+    transform: rotate(360deg);
+}
+
+.media-left__thumb {
+    width: 300px;
+    height: 300px;
+    margin-bottom: 12px;
+    transition: all 0.2s;
+    @include lt-lg {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+.media-left__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.content-top {
+    text-align: center;
+    .title {
+        margin-bottom: 8px;
+        font-size: 2rem;
+        text-transform: capitalize;
+    }
+    .release {
+    }
+
+    .artists {
+    }
+
+    .release,
+    .artists,
+    .like {
+        font-size: 1.2rem;
+        font-weight: 400;
+        line-height: 2rem;
+    }
+}
+.actions {
+    .actions-btn {
+        margin: 16px auto;
+        padding: 6px 12px;
+        border-radius: 24px;
+        font-size: 1.4rem;
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+
+    .actions-level {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &__btn {
+            background-color: var(--second-bg);
+        }
+    }
+}
+
+//right {
+.media-right__info {
+    font-size: 1.2rem;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    span {
+        &:nth-child(2) {
+            font-size: 0.6rem;
+            margin: 0 6px;
+        }
+    }
+}
+
+// artists
+
+.artist {
+    text-align: center;
+    &-link,
+    &-img,
+    &-img > img {
+        width: 100%;
+    }
+
+    &-link {
+    }
+    &-img {
+        border-radius: 50%;
+        overflow: hidden;
+        img {
+            transition: all 0.5s;
+        }
+        &:hover img {
+            transform: scale(1.2);
+        }
+    }
+    &-name {
+        margin-top: 16px;
+        font-weight: 500;
+        font-size: 1.4rem;
+        margin-bottom: 4px;
+        &__link {
+            &:hover {
+                text-decoration: underline;
+                color: var(--purple-primary);
+            }
+        }
+    }
+    &-follow {
+        font-size: 1.2rem;
+        font-weight: 300;
+        color: var(--text-secondary);
+    }
+    &-action {
+        margin-top: 16px;
+    }
+    &-btn {
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        margin: auto;
+        padding: 6px 18px;
+        border-radius: 24px;
+        border-color: var(--border-primary);
+        background-color: var(--second-bg);
+    }
+}
+
+@keyframes spinner {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

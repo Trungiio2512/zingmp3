@@ -4,8 +4,18 @@
     align-items: center;
 }
 
+@mixin lineClamp1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .media.small {
     padding: 10px;
+
+    .media-center .song-name {
+        font-size: 1.2rem;
+    }
 }
 .media.medium {
     padding: 12px;
@@ -17,7 +27,6 @@
 
 .media {
     @include dfCenter;
-    width: 100%;
     border: 1px solid transparent;
     border-radius: 8px;
     &-left {
@@ -54,6 +63,31 @@
 }
 
 //left
+
+.checkbox {
+    input[type="checkbox"] {
+        appearance: none;
+        -webkit-appearance: none;
+        background-color: var(--purple-primary);
+        width: 16px;
+        height: 16px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        cursor: pointer;
+        position: relative;
+        &:checked {
+        }
+    }
+    input[type="checkbox"]::after {
+        content: " ";
+        display: block;
+        width: 20%;
+        height: 50%;
+        border-top: 2px solid var(--white);
+        border-left: 2px solid var(--white);
+        transform: translate(100%, 20%) rotate(220deg);
+    }
+}
 
 .rank {
     @include dfCenter;
@@ -108,9 +142,7 @@
     &-name,
     &-artists,
     &-artists__name {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        @include lineClamp1;
     }
 }
 
@@ -178,19 +210,23 @@
 }
 //center
 
-.song-name {
-    text-align: left;
-    width: 100%;
-    display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    max-width: 100%;
-    &:hover {
-        text-decoration: underline;
-        color: var(--purple-primary);
-    }
-    @include lt-lg {
-        display: none;
+.media-center {
+    @include lineClamp1;
+
+    .song-name {
+        text-align: left;
+        // width: 100%;
+        display: block;
+        @include lineClamp1;
+        color: rgba(50, 50, 61, 0.5);
+        max-width: 100%;
+        &:hover {
+            text-decoration: underline;
+            color: var(--purple-primary);
+        }
+        @include lt-lg {
+            display: none;
+        }
     }
 }
 

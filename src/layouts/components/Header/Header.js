@@ -17,9 +17,9 @@ function Header() {
         <div className={cx("wrapper")}>
             <div className={cx("header-menu")}>
                 <FontAwesomeIcon icon={faBars} />
-                <div className={cx("header-menu-sidebar")}>
+                {/* <div className={cx("header-menu-sidebar")}>
                     <Sidebar mobile />
-                </div>
+                </div> */}
             </div>
             <Search />
             <div className={cx("header-actions")}>
