@@ -1,9 +1,44 @@
 @use "../../../scss/media-queries.scss" as *;
 .detail {
+    @include lt-lg {
+        .media {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .actions,
+        .media-left {
+            display: flex;
+        }
+
+        .media-right {
+            margin-top: 32px;
+            margin-left: 0;
+        }
+
+        .media-left__thumb {
+            width: 200px;
+            height: 200px;
+            margin-right: 20px;
+        }
+        .content-top {
+            margin-top: 0;
+            text-align: left;
+        }
+
+        .actions-level {
+            margin-top: 0 !important;
+        }
+
+        .actions-btn {
+            margin: 0 8px 0 0 !important;
+        }
+    }
 }
 
 .media {
     margin-bottom: 32px;
+
     &-left {
         float: left;
         height: 100%;
@@ -26,12 +61,7 @@
 .media-left__thumb {
     width: 300px;
     height: 300px;
-    margin-bottom: 12px;
     transition: all 0.2s;
-    @include lt-lg {
-        width: 200px;
-        height: 200px;
-    }
 }
 
 .media-left__content {
@@ -42,6 +72,8 @@
 
 .content-top {
     text-align: center;
+    margin-bottom: 16px;
+    margin-top: 16px;
     .title {
         margin-bottom: 8px;
         font-size: 2rem;
@@ -63,7 +95,7 @@
 }
 .actions {
     .actions-btn {
-        margin: 16px auto;
+        margin: auto;
         padding: 6px 12px;
         border-radius: 24px;
         font-size: 1.4rem;
@@ -72,6 +104,7 @@
     }
 
     .actions-level {
+        margin-top: 16px;
         display: flex;
         align-items: center;
         justify-content: center;

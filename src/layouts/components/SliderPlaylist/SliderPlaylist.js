@@ -50,11 +50,12 @@ function SliderPlaylist({ data }) {
 
     return (
         <Slider {...settings}>
-            {data.map((item, index) => (
-                <div key={index} className={styles.wrapper}>
-                    <PlaylistItem title artists data={item} />
-                </div>
-            ))}
+            {data &&
+                data.map((item, index) => (
+                    <div key={index} className={styles.wrapper}>
+                        <PlaylistItem title artists data={item} />
+                    </div>
+                ))}
         </Slider>
     );
 }

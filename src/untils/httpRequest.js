@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const httpRequest = axios.create({
-    baseURL: "https://apizingmp3.herokuapp.com/api/",
+    baseURL: "https://apizingmp3.vercel.app/api/",
 });
 
 httpRequest.interceptors.response.use(

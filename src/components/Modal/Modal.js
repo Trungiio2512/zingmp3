@@ -1,7 +1,9 @@
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import classNames from "classnames/bind";
 import { useRef, useState, useEffect, useCallback } from "react";
+import classNames from "classnames/bind";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
 
 import Portal from "~/components/Portal";
 import styles from "./Modal.module.scss";
@@ -12,6 +14,7 @@ const defaultFn = () => {};
 function Modal({
     fromRight = false,
     fromLeft = false,
+    center = false,
     isOpen = false,
     shouldCloseOverlayClick = true,
     children,
@@ -20,17 +23,17 @@ function Modal({
     const [closesing, setClosing] = useState(false);
     const containerRef = useRef();
 
-    // const handleRequestClose = useCallback(() => {
-    //     setClosing(true);
-    //     containerRef.current.addEventListener(
-    //         "animationend",
-    //         () => {
-    //             setClosing(false);
-    //             onRequestClose();
-    //         },
-    //         { once: true },
-    //     );
-    // }, [onRequestClose]);
+    const handleRequestClose = useCallback(() => {
+        setClosing(true);
+        containerRef.current.addEventListener(
+            "animationend",
+            () => {
+                setClosing(false);
+                onRequestClose();
+            },
+            { once: true },
+        );
+    }, [onRequestClose]);
 
     // useEffect(() => {
     //     const handleClickOnKeyboard = (e) => {
@@ -49,14 +52,20 @@ function Modal({
 
     return (
         <Portal>
-            <div className={cx("wrapper", { closesing, fromRight })}>
-                {/* <div className={cx("overlay")} onClick={shouldCloseOverlayClick ? handleRequestClose : defaultFn} /> */}
+            <div className={cx("wrapper", { closesing, fromRight, center })}>
+                {center && (
+                    <div className={cx("overlay")} onClick={shouldCloseOverlayClick ? handleRequestClose : defaultFn} />
+                )}
                 <div className={cx("container")} ref={containerRef}>
                     {children}
+                    {center && (
+                        <Tippy delay={[100, 300]} offset={[0, 0]} content={"Đóng"}>
+                            <button onClick={handleRequestClose} className={cx("close-btn")}>
+                                <FontAwesomeIcon icon={faTimes} />
+                            </button>
+                        </Tippy>
+                    )}
                 </div>
-                {/* <button onClick={handleRequestClose} className={cx("close-btn")}>
-                    <FontAwesomeIcon icon={faTimes} />
-                </button> */}
             </div>
         </Portal>
     );

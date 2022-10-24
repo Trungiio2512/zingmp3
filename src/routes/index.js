@@ -6,6 +6,7 @@ import NewMusic from "~/pages/NewMusic";
 import Category from "~/pages/Category";
 import DetailPlaylist from "~/pages/DetailPlaylist";
 import DetailAlbum from "~/pages/DetailAlbum";
+import DetailArtist from "~/pages/DetailArtist/DetailArtist";
 
 const publicRoute = [
     { path: "/", component: Home },
@@ -16,6 +17,8 @@ const publicRoute = [
     { path: "/category", component: Category },
     { path: "/album/:nameAlbum/:id", component: DetailAlbum },
     { path: "/playlist/:namePlaylist/:id", component: DetailPlaylist },
+    { path: "/nghe-si/:nameArtist", component: DetailArtist },
+    { path: "/:nameArtist", component: DetailArtist },
 ];
 
 export { publicRoute };

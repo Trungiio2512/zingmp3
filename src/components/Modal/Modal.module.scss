@@ -12,50 +12,82 @@
     animation: showFromRight 0.3s linear;
 }
 
+@mixin GrowUp {
+    animation: grow-up 0.3s linear;
+}
+
+@mixin GrowDown {
+    animation: grow-down 0.3s linear forwards;
+}
+
 @mixin FadeOut {
     animation: fadeOut 0.3s linear forwards;
 }
 
-.wrapper.fromRight {
-    top: 0;
-    right: 0;
-}
-
 .wrapper {
     position: fixed;
-
     height: calc(100% - var(--player-height));
     z-index: 999;
     display: flex;
 }
 
-// .wrapper.closesing .overlay {
-//     @include FadeOut;
-// }
+.wrapper.fromRight {
+    top: 0;
+    height: calc(100% - var(--player-height));
+    right: 0;
+    .container {
+        min-width: 400px;
+        padding: 48px;
+    }
+}
 
-// .wrapper.closesing .container {
-//     @include FadeOut;
-// }
+.wrapper.center {
+    inset: 0;
+    align-items: center;
+    justify-content: center;
+    .container,
+    .overlay {
+        @include GrowUp;
+    }
+    .container {
+        border-radius: 12px;
+        padding: 24px;
+        min-width: 480px;
+    }
+}
+
+.wrapper.center.closesing {
+    .container {
+        @include FadeOut;
+        @include GrowDown;
+    }
+}
 
 .wrapper.fromRight .container {
     @include ShowFromRight;
 }
 
-// .overlay {
-//     position: fixed;
-//     inset: 0;
-//     background-color: rgba($color: #000, $alpha: 0.5);
-//     @include FadeIn;
-// }
+.overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba($color: #000, $alpha: 0.5);
+    @include FadeIn;
+}
 
 .container {
     position: relative;
-    min-width: 400px;
-    height: 100%;
     background-color: #fff;
-    padding: 48px;
     box-shadow: 3px 0 2px rgba(0, 0, 0, 0.3);
     @include FadeIn;
+}
+
+.close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 2rem;
+    padding: 12px;
+    cursor: pointer;
 }
 
 @keyframes fadeIn {
@@ -73,6 +105,23 @@
     }
     to {
         opacity: 0;
+    }
+}
+
+@keyframes grow-up {
+    from {
+        transform: scale(0.2);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+@keyframes grow-down {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(0.2);
     }
 }
 

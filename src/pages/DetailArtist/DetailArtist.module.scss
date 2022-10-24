@@ -1,0 +1,126 @@
+@mixin dfBetween {
+    display: flex;
+    justify-content: space-between;
+}
+
+@mixin dfJCenter {
+    display: flex;
+    justify-content: center;
+}
+@mixin dfACenter {
+    display: flex;
+    justify-content: center;
+}
+.artist {
+    @include dfBetween;
+    margin-bottom: 32px;
+    &-info {
+        width: 100%;
+        max-width: 60%;
+        margin-right: 38px;
+        @include dfBetween;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    &-name {
+        font-size: 3.6rem;
+        margin-bottom: 8px;
+    }
+    &-biography {
+        max-height: 70px;
+        font-size: 1.4rem;
+        margin-bottom: 24px;
+        overflow: hidden scroll;
+    }
+    &-actions {
+    }
+
+    &-topAlbum {
+        width: 100%;
+    }
+
+    &-thumb {
+        justify-items: flex-end;
+    }
+}
+.artist-info {
+    .artist-name {
+    }
+}
+
+.artist-biography {
+    .info-btn {
+        font-size: 1.4rem;
+        text-transform: uppercase;
+        display: inline-block;
+        &:hover {
+            color: var(--purple-primary);
+        }
+    }
+}
+.artist-actions {
+    @include dfACenter;
+    margin-bottom: 24px;
+    .actions-btn {
+        padding: 8px 14px;
+        font-size: 1.4rem;
+        border-radius: 24px;
+        text-transform: uppercase;
+    }
+}
+.artist-topAlbum {
+    &__heading {
+    }
+    &__newDate {
+        font-size: 1.4rem;
+        margin-bottom: 4px;
+    }
+}
+.artist-thumb {
+    .artist-img {
+        width: 260px;
+        height: 260px;
+        border-radius: 50%;
+        overflow: hidden;
+        img {
+            width: 100%;
+            object-fit: cover;
+        }
+    }
+}
+
+// card
+.card {
+    width: 480px;
+    display: flex;
+    flex-direction: column;
+    &-info {
+        margin: auto;
+    }
+
+    &-thumb {
+        @include dfJCenter;
+    }
+    &-img {
+        overflow: hidden;
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        img {
+            width: 100%;
+            overflow: hidden;
+        }
+    }
+
+    &-biogaphy {
+        height: 218px;
+        overflow: hidden overlay;
+    }
+}
+
+//list song
+
+.list-song {
+    height: 244px;
+    overflow: hidden overlay;
+}
