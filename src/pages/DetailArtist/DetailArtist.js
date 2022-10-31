@@ -14,6 +14,8 @@ import SliderPlaylist from "~/layouts/components/SliderPlaylist";
 import Button from "~/components/Button";
 import Song from "~/layouts/components/Song";
 import Wrapper from "~/components/Wrapper";
+import Artist from "~/layouts/components/Artist";
+import { Grid, GridItem } from "~/components/Grid";
 
 const cx = classNames.bind(styles);
 
@@ -43,7 +45,11 @@ function DetailArtist() {
             }
         };
         fetchApi();
-    }, []);
+    }, [nameArtist]);
+
+    useEffect(() => {
+        document.title = data?.name;
+    }, [data]);
     console.log(data);
     if (isLoading) {
         return <Loading />;
@@ -101,6 +107,19 @@ function DetailArtist() {
                                             <Song key={index} song center right time small smallSizeImg data={item} />
                                         ))}
                                     </div>
+                                </Section>
+                            );
+                        }
+                        if (section?.sectionType === "artist") {
+                            return (
+                                <Section key={index} title={section?.title}>
+                                    <Grid>
+                                        {section?.items.map((item, index) => (
+                                            <GridItem key={index} m="4" l="2-4">
+                                                <Artist data={item} />
+                                            </GridItem>
+                                        ))}
+                                    </Grid>
                                 </Section>
                             );
                         }

@@ -8,9 +8,9 @@ const cx = classNames.bind(styles);
 
 function Tab1({ data }) {
     const [active, setActive] = useState(1);
-    const [songs, setSongs] = useState(data[0].song);
-    const [albums, setAlbum] = useState(data[0].album);
-    // console.log(data);
+    const [songs, setSongs] = useState(data.vPop);
+    const [albums, setAlbum] = useState(data.album);
+    console.log(data);
     // console.log(songs);
     const handleChangeTab = (index) => {
         setActive(index);
@@ -45,7 +45,7 @@ function Tab1({ data }) {
                         )}
                     </Grid>
                 </div>
-                <div className={cx("tab1-container", active === 2 ? "tab1-container--active" : "")}>
+                {/* <div className={cx("tab1-container", active === 2 ? "tab1-container--active" : "")}>
                     <Grid>
                         {albums.map((album, index) => (
                             <GridItem c="12" m="6" l="4" key={index}>
@@ -53,7 +53,7 @@ function Tab1({ data }) {
                             </GridItem>
                         ))}
                     </Grid>
-                </div>
+                </div> */}
             </div>
         </div>
     );

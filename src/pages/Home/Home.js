@@ -3,7 +3,7 @@ import Section from "~/layouts/components/Section";
 import httpRequest from "~/untils/httpRequest";
 import styles from "./Home.module.scss";
 import PlaylistItem from "~/layouts/components/Playlist";
-import SliderShow from "~/pages/Home/components/Slider";
+import SliderShow from "~/pages/components/Slider";
 import { Grid, GridItem } from "~/components/Grid";
 import Song from "~/layouts/components/Song";
 import { Tab1 } from "~/layouts/components/Tab";
@@ -47,6 +47,7 @@ function Home() {
             <div>
                 {data &&
                     data.map((item, index) => {
+                        console.log(item);
                         switch (item?.sectionType) {
                             case section.banner:
                                 return (

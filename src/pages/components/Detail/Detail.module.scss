@@ -11,6 +11,10 @@
             display: flex;
         }
 
+        .media-left {
+            width: 100%;
+        }
+
         .media-right {
             margin-top: 32px;
             margin-left: 0;
@@ -41,6 +45,7 @@
 
     &-left {
         float: left;
+        width: 300px;
         height: 100%;
     }
 
@@ -59,8 +64,6 @@
 }
 
 .media-left__thumb {
-    width: 300px;
-    height: 300px;
     transition: all 0.2s;
 }
 
@@ -129,57 +132,6 @@
 }
 
 // artists
-
-.artist {
-    text-align: center;
-    &-link,
-    &-img,
-    &-img > img {
-        width: 100%;
-    }
-
-    &-link {
-    }
-    &-img {
-        border-radius: 50%;
-        overflow: hidden;
-        img {
-            transition: all 0.5s;
-        }
-        &:hover img {
-            transform: scale(1.2);
-        }
-    }
-    &-name {
-        margin-top: 16px;
-        font-weight: 500;
-        font-size: 1.4rem;
-        margin-bottom: 4px;
-        &__link {
-            &:hover {
-                text-decoration: underline;
-                color: var(--purple-primary);
-            }
-        }
-    }
-    &-follow {
-        font-size: 1.2rem;
-        font-weight: 300;
-        color: var(--text-secondary);
-    }
-    &-action {
-        margin-top: 16px;
-    }
-    &-btn {
-        font-size: 1.2rem;
-        text-transform: uppercase;
-        margin: auto;
-        padding: 6px 18px;
-        border-radius: 24px;
-        border-color: var(--border-primary);
-        background-color: var(--second-bg);
-    }
-}
 
 @keyframes spinner {
     from {

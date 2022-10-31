@@ -10,11 +10,22 @@
     white-space: nowrap;
 }
 
+.media.active {
+    background-color: var(--purple-primary);
+    color: var(--white) !important;
+}
+.media.isWorldWide {
+    opacity: 0.6;
+}
+
 .media.small {
     padding: 10px;
     .media-right__time,
     .media-center .song-name {
         font-size: 1.2rem;
+    }
+    .thumb {
+        margin: 0 6px;
     }
 }
 .media.medium {
@@ -131,6 +142,7 @@
     // }
     &-artists__name {
         font-size: 1.3rem;
+        color: currentColor;
         &:hover {
             text-decoration: underline;
             color: var(--purple-primary);
@@ -195,7 +207,6 @@
         align-items: center;
         justify-content: center;
         border-radius: 8px;
-        color: white;
         background-color: rgba(0, 0, 0, 0.2);
     }
 
@@ -218,7 +229,8 @@
         // width: 100%;
         display: block;
         @include lineClamp1;
-        color: rgba(50, 50, 61, 0.5);
+        // color: rgba(50, 50, 61, 0.5);
+        color: currentColor;
         max-width: 100%;
         &:hover {
             text-decoration: underline;

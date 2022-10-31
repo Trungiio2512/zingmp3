@@ -10,6 +10,8 @@ import Section from "~/layouts/components/Section";
 import Song from "~/layouts/components/Song";
 import Thumb from "~/layouts/components/Thumb";
 import styles from "./Detail.module.scss";
+import Artist from "~/layouts/components/Artist";
+import { setFollower } from "~/funtion";
 
 const cx = classNames.bind(styles);
 
@@ -53,7 +55,7 @@ function Detail({ data, playlist, album }) {
                             <div className={cx("artists")}>
                                 <span>{data?.artistsNames}</span>
                             </div>
-                            <span className={cx("like")}>{data?.like} người yêu thích</span>
+                            <span className={cx("like")}>{setFollower(data?.like)} người yêu thích</span>
                         </div>
                         <div className={cx("actions")}>
                             <Button primary className={cx("actions-btn")} leftIcon={<FontAwesomeIcon icon={faPlay} />}>
@@ -115,34 +117,11 @@ function Detail({ data, playlist, album }) {
             </main>
             <Section title="Nghệ sĩ tham gia">
                 <Grid>
-                    {data &&
-                        data?.artists.map((artist) => (
-                            <GridItem l="2-4" c="6" m="3" key={artist.id}>
-                                <div className={cx("artist")}>
-                                    <Link to={artist?.link} className={cx("artist-link")}>
-                                        <figure className={cx("artist-img")}>
-                                            <img src={artist?.thumbnailM} alt={artist?.alias} />
-                                        </figure>
-                                    </Link>
-                                    <div className={cx("artist-name")}>
-                                        <Link to={artist?.link} className={cx("artist-name__link")}>
-                                            {artist.name}
-                                        </Link>
-                                    </div>
-                                    <div className={cx("artist-follow")}>
-                                        <span>{artist?.totalFollow} quan tâm</span>
-                                    </div>
-                                    <div className={cx("artist-action")}>
-                                        <Button
-                                            className={cx("artist-btn")}
-                                            leftIcon={<FontAwesomeIcon icon={faUserPlus} />}
-                                        >
-                                            Quan tâm
-                                        </Button>
-                                    </div>
-                                </div>
-                            </GridItem>
-                        ))}
+                    {data?.artists.map((artist, index) => (
+                        <GridItem key={index} m="4" l="2-4">
+                            <Artist data={artist} />
+                        </GridItem>
+                    ))}
                 </Grid>
             </Section>
         </div>
