@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import Section from "~/layouts/components/Section";
 import httpRequest from "~/untils/httpRequest";
 import styles from "./Home.module.scss";
-import PlaylistItem from "~/layouts/components/Playlist";
+import Card from "~/layouts/components/Card";
 import SliderShow from "~/pages/components/Slider";
 import { Grid, GridItem } from "~/components/Grid";
-import Song from "~/layouts/components/Song";
+import { Media } from "~/layouts/components/Media";
 import { Tab1 } from "~/layouts/components/Tab";
-import { Playlist } from "~/layouts/components/Playlist";
+
 import Loading from "~/layouts/components/Loading";
 
 const section = {
@@ -47,7 +47,7 @@ function Home() {
             <div>
                 {data &&
                     data.map((item, index) => {
-                        console.log(item);
+                        // console.log(item);
                         switch (item?.sectionType) {
                             case section.banner:
                                 return (
@@ -58,13 +58,19 @@ function Home() {
                             case section.playlist:
                                 return (
                                     <Section title={item?.title} key={index}>
-                                        <Playlist data={item?.items} m="4" />
+                                        <Grid>
+                                            {item?.items.map((item, index) => (
+                                                <GridItem l={"2-4"} key={index}>
+                                                    <Card playlist data={item} title subtitle />
+                                                </GridItem>
+                                            ))}
+                                        </Grid>
                                     </Section>
                                 );
                             case section.newRelease:
                                 return (
                                     <Section link={item?.link} title={item?.title} key={index}>
-                                        <Tab1 data={item?.items} />
+                                        <Tab1 data={item?.items} id={item?.sectionType} />
                                     </Section>
                                 );
                             case section.recentPlaylist:

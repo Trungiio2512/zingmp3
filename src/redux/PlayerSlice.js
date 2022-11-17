@@ -4,29 +4,30 @@ import { images } from "~/assets";
 const PlayerSlice = createSlice({
     name: "player",
     initialState: {
-        isPlay: false,
+        isPlaySong: false,
         isMuted: false,
         isRandom: false,
         isRepeat: false,
         autoplay: false,
         currentSong: null,
-        durationSong: 0,
         currentTimeSong: 0,
-        volumeSong: 0,
-        infoCurrentSong: {
+        currentIndexSong: null,
+        currentInfoSong: {
             thumbnail: images.srcThumbDefault,
             title: "Hãy chọn 1 bài hát",
-            timeSong: "00:00",
+            duration: 0,
             artists: [],
         },
-        playlistSong: null,
-        playlistRandomSong: null,
+        volumeSong: 0,
+        playlistIdSong: "",
+        playlistSong: [],
+        // playlistRandomSong: [],
         songId: null,
         songSrc: "",
     },
     reducers: {
         setPlaySong: (state, action) => {
-            state.isPlay = action.payload;
+            state.isPlaySong = action.payload;
         },
         setSongId: (state, action) => {
             state.songId = action.payload;
@@ -35,10 +36,10 @@ const PlayerSlice = createSlice({
             state.songSrc = action.payload;
         },
         setInfoCurrentSong: (state, action) => {
-            state.infoCurrentSong = action.payload;
+            state.currentInfoSong = action.payload;
         },
         setRandomSong: (state, action) => {
-            state.isRandom = !state.isRandom;
+            state.isRandom = action.payload;
         },
         setRepeatSong: (state, action) => {
             state.isRepeat = !state.isRepeat;
@@ -55,8 +56,18 @@ const PlayerSlice = createSlice({
         setVolumeSong: (state, action) => {
             state.volumeSong = action.payload;
         },
-        setCurrentSong: (state, action) => {},
-        setPlaylistSong: (state, action) => {},
+        setPlaylistSong: (state, action) => {
+            state.playlistSong = [...action.payload];
+        },
+        setIdPlaylistSong: (state, action) => {
+            state.playlistIdSong = action.payload;
+        },
+        setCurrentIndexSong: (state, action) => {
+            state.currentIndexSong = action.payload;
+        },
+        // setPlaylistRandomSong: (state, action) => {
+        //     state.playlistRandomSong = action.payload;
+        // },
     },
 });
 export const {
@@ -70,6 +81,10 @@ export const {
     setRepeatSong,
     setCurrentTimeSong,
     setVolumeSong,
+    setPlaylistSong,
+    setCurrentIndexSong,
+    setIdPlaylistSong,
+    setPlaylistRandomSong,
 } = PlayerSlice.actions;
 
 export default PlayerSlice.reducer;

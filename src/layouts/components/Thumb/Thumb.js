@@ -1,23 +1,44 @@
+import classNames from "classnames/bind";
 import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 import Button from "~/components/Button";
 import styles from "./Thumb.module.scss";
-function Thumb({ title, thumbNail, onClick, isPlay = false }) {
+
+const cx = classNames.bind(styles);
+
+function Thumb({ title, isVideo, thumbNail, onClick, onHandlePlay, to, id, isPlay = false, ...passProps }) {
+    let Comp;
+    const props = {
+        ...passProps,
+    };
+    if (to) {
+        Comp = Link;
+        props.to = to;
+        props.state = { id: id };
+    } else {
+        Comp = "div";
+    }
+
     return (
-        <figure className={styles.thumb}>
-            <img alt={title} src={thumbNail} />
-            <div className={styles.control}>
+        <div className={cx("thumb", { isVideo })}>
+            <Comp {...props}>
+                <figure className={styles.thumb_img}>
+                    <img alt={title} src={thumbNail} />
+                </figure>
+            </Comp>
+            <Button className={styles.control} circle outline onClick={to ? () => onHandlePlay(to, id) : onClick}>
                 {isPlay ? (
-                    <Button circle outline onClick={onClick}>
+                    isVideo ? (
+                        "Đang phát"
+                    ) : (
                         <FontAwesomeIcon icon={faPause} />
-                    </Button>
+                    )
                 ) : (
-                    <Button circle outline onClick={onClick}>
-                        <FontAwesomeIcon icon={faPlay} />
-                    </Button>
+                    <FontAwesomeIcon icon={faPlay} />
                 )}
-            </div>
-        </figure>
+            </Button>
+        </div>
     );
 }
 

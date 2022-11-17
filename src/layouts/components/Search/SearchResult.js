@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 
 import styles from "./Search.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Song from "~/layouts/components/Song";
+import { Media, MediaArtist } from "~/layouts/components/Media";
 const cx = classNames.bind(styles);
 
-function SearchResult({ data, value }) {
+function SearchResult({ data, value, onPlaySong }) {
     console.log(data, value);
     return (
         <>
@@ -22,12 +22,39 @@ function SearchResult({ data, value }) {
             </div>
             <div className={cx("search-top")}>
                 <h5 className={cx("search-heading")}>Gợi ý gần nhất</h5>
-                <Song song small data={data.top} />
+                {data?.top?.objectType === "song" && (
+                    <Media onClick={() => onPlaySong(data?.top)} song small data={data.top} />
+                )}
+
+                {data?.top?.objectType === "artist" && (
+                    <MediaArtist
+                        title={data?.top?.name}
+                        dataArtist={data?.top}
+                        avata
+                        follower
+                        to={data?.top?.link}
+                        // className={cx("search-item")}
+                    />
+                )}
             </div>
             <div className={cx("search-more")}>
                 <h5 className={cx("search-heading")}>Kết quả khác</h5>
                 {data?.songs.map((song, index) => (
-                    <Song song small data={song} key={index} />
+                    <Media onClick={() => onPlaySong(song)} song small data={song} key={index} />
+                ))}
+            </div>
+            <div className={cx("search-artists")}>
+                <h5 className={cx("search-heading")}>Nghệ sĩ</h5>
+                {data?.artists.map((artist) => (
+                    <MediaArtist
+                        key={artist?.id}
+                        title={artist?.name}
+                        dataArtist={artist}
+                        avata
+                        follower
+                        to={artist?.link}
+                        className={cx("search-item")}
+                    />
                 ))}
             </div>
         </>

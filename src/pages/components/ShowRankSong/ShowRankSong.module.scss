@@ -7,3 +7,16 @@
         justify-content: center;
     }
 }
+
+.heading {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    .title {
+        font-size: 4rem;
+        font-weight: 700;
+        text-transform: capitalize;
+        color: var(--white);
+        margin-right: 6px;
+    }
+}

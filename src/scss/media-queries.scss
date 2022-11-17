@@ -6,7 +6,7 @@ $screen-xl-min: 1920px;
 
 $screen-xs-max: 599px;
 $screen-sm-max: 959px;
-$screen-md-max: 1279px;
+$screen-md-max: 1113px;
 $screen-lg-max: 1919px;
 $screen-xl-max: 5000px;
 
@@ -101,9 +101,3 @@ $screen-pc: 1024px;
         @content;
     }
 }
-
-// @mixin tablet {
-//     @media screen and (min-width: #{}) {
-//         @content;
-//     }
-// }

@@ -4,12 +4,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import styles from "./SliderPlaylist.module.scss";
-import { PlaylistItem } from "~/layouts/components/Playlist";
+import Card from "~/layouts/components/Card";
 import ButtonSlider from "~/components/Button/ButtonSlider";
 const cx = classNames.bind(styles);
 
 function SliderPlaylist({ data }) {
-    // console.log(data);
+    console.log(data);
     const settings = {
         infinite: true,
         slidesToShow: 5,
@@ -51,11 +51,13 @@ function SliderPlaylist({ data }) {
     return (
         <Slider {...settings}>
             {data &&
-                data.map((item, index) => (
-                    <div key={index} className={styles.wrapper}>
-                        <PlaylistItem title artists data={item} />
-                    </div>
-                ))}
+                data.map((item, index) => {
+                    return (
+                        <div key={index} className={styles.wrapper}>
+                            <Card playlist title artists data={item} />
+                        </div>
+                    );
+                })}
         </Slider>
     );
 }

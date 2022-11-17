@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Loading from "~/layouts/components/Loading";
-import { Playlist } from "~/layouts/components/Playlist";
+import { Card } from "~/layouts/components/Card";
 import Section from "~/layouts/components/Section";
 import SliderPlaylist from "~/layouts/components/SliderPlaylist";
 import httpRequest from "~/untils/httpRequest";
@@ -41,7 +41,7 @@ function Top100() {
                         // } else if (data?.viewType === "list") {
                         //     return (
                         //         <Section title={data?.title} key={index}>
-                        //             <Playlist data={data?.items} key={index} m="4" />;
+                        //            <Card isPlaylist data={data?.items} key={index} m="4" />;
                         //         </Section>
                         //     );
                         // }

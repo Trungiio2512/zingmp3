@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import PlayerReducer from "./PlayerSlice";
+import PlayerReducer from "./playerSlice";
+import MvReducer from "./mvSlice";
 const store = configureStore({
     reducer: {
         player: PlayerReducer,
+        mv: MvReducer,
     },
 });
 

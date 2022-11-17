@@ -10,6 +10,8 @@ import Button from "~/components/Button";
 import Wrapper from "~/components/Wrapper";
 import httpRequest from "~/untils/httpRequest";
 import SearchResult from "./SearchResult";
+import { useDispatch } from "react-redux";
+import { setCurrentTimeSong, setInfoCurrentSong, setSongId } from "~/redux/playerSlice";
 const cx = classNames.bind(styles);
 
 function Search() {
@@ -18,6 +20,7 @@ function Search() {
     const [showResult, setShowResult] = useState(false);
     const [loading, setLoading] = useState(false);
 
+    const dispatch = useDispatch();
     // const location = useLocation();
     // const locationPrevRef = useRef(location);
 
@@ -63,6 +66,12 @@ function Search() {
         setSearchValue(searchValue);
     };
 
+    const handleSong = (song) => {
+        console.log(song);
+        dispatch(setInfoCurrentSong(song));
+        dispatch(setCurrentTimeSong(0));
+        dispatch(setSongId(song?.encodeId));
+    };
     return (
         // Using a wrapper <div> tag around the reference element solves
         //this by creating a new parentNode context.
@@ -78,7 +87,7 @@ function Search() {
                         <Wrapper>
                             <h4 className={cx("search-heading")}>Kết quả</h4>
                             {searchResult?.err === 0 ? (
-                                <SearchResult data={searchResult.data} value={searchValue} />
+                                <SearchResult onPlaySong={handleSong} data={searchResult.data} value={searchValue} />
                             ) : (
                                 <h5>Không có kết quả</h5>
                             )}

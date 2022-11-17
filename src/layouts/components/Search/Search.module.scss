@@ -8,6 +8,7 @@ $search-btn-width: 40px;
 .search,
 .search-result {
     width: 540px;
+    color: var(--text-placeholder);
 
     // @include mobile {
     //     width: 100%;
@@ -19,9 +20,9 @@ $search-btn-width: 40px;
     align-items: center;
     height: 100%;
     border-radius: 92px;
-    background-color: rgba(22, 24, 35, 0.06);
+    background-color: #ffffff1a;
     border: 1px solid transparent;
-    caret-color: var(--primary);
+    caret-color: var(--purple-primary);
     position: relative;
 
     &::after {
@@ -41,6 +42,7 @@ $search-btn-width: 40px;
         padding: 0 40px 0 18px;
         font-size: 1.6rem;
         font-weight: 500;
+        color: var(--text-placeholder);
         font-family: var(--font-family);
     }
 
@@ -53,14 +55,14 @@ $search-btn-width: 40px;
     }
 }
 
-.search-title {
-    display: block;
-    font-size: 1.6rem;
-    color: var(--text-color);
-    padding-left: 12px;
-    font-weight: 600;
-    margin-bottom: 4px;
-}
+// .search-title {
+//     display: block;
+//     font-size: 1.6rem;
+//     color: var(--text-color);
+//     padding-left: 12px;
+//     font-weight: 600;
+//     margin-bottom: 4px;
+// }
 
 .clear,
 .loading {
@@ -96,16 +98,23 @@ $search-btn-width: 40px;
 }
 
 .search-heading {
-    color: var(--text-primary);
+    color: var(--white);
     margin-bottom: 12px;
+}
+
+.search-key,
+.search-top,
+.search-more,
+.search-artists {
+    margin-bottom: 8px;
 }
 
 //search result
 .search-item {
     display: flex;
     width: 100%;
-    padding: 12px 24px;
-    color: var(--text-primary);
+    padding: 12px;
+    color: var(--text-secondary);
     border-radius: 8px;
     &:hover {
         background-color: rgba(0, 0, 0, 0.06);

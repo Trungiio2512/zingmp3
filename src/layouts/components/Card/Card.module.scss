@@ -1,0 +1,107 @@
+@use "../../../scss/media-queries.scss" as *;
+
+@mixin lineClamp($number) {
+    display: -webkit-box;
+    -webkit-line-clamp: $number;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card {
+    margin: 12px 0;
+    // &-link {
+    // }
+
+    &-thumb {
+        width: 100%;
+    }
+    &-body {
+        margin-top: 12px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &-title {
+        @include lineClamp(1);
+        color: var(--white);
+        font-size: 1.6rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+        &:hover {
+            color: var(--purple-primary);
+        }
+    }
+    &-subtitle {
+        @include lineClamp(2);
+        font-size: 1.4rem;
+        color: var(--text-secondary);
+        user-select: none;
+    }
+
+    &-artists {
+        @include lineClamp(2);
+    }
+    &-artist__name {
+        color: #ffffff7f;
+        font-size: 1.2rem;
+        &:hover {
+            color: var(--purple-primary);
+            text-decoration: underline;
+        }
+    }
+    &-artist__name ~ &-artist__name {
+        margin-left: 4px;
+    }
+
+    &-duration {
+        position: absolute;
+        top: -40px;
+        right: 6px;
+        span {
+            padding: 4px;
+            border-radius: 6px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            font-size: 1.2rem;
+        }
+        // transform: translate(-30%, -200%);
+    }
+}
+
+//mv
+
+.card.mvRecommend {
+    display: flex;
+    .card-duration {
+        display: none;
+    }
+    .card-thumb {
+        width: 120px;
+        height: 64px;
+        flex-shrink: 0;
+    }
+
+    .card-body {
+        margin-left: 8px;
+        width: calc(100% - 120px);
+    }
+
+    @include lt-lg {
+        display: block;
+        .card-duration {
+            display: flex;
+        }
+        .card-thumb {
+            width: 100%;
+            height: auto;
+            // flex-shrink: 0;
+        }
+
+        .card-body {
+            margin-left: 0;
+            // width: calc(100% - 120px);
+            width: 100%;
+        }
+    }
+}

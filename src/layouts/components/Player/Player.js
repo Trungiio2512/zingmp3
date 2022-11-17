@@ -8,7 +8,6 @@ import {
     faStepBackward,
     faStepForward,
     faUndo,
-    faVolumeDown,
     faVolumeMute,
     faVolumeUp,
     faWindowRestore,
@@ -19,21 +18,25 @@ import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
 
 import httpRequest from "~/untils/httpRequest";
 import Button from "~/components/Button";
 import Modal from "~/components/Modal";
 import {
+    setCurrentIndexSong,
     setCurrentTimeSong,
+    setInfoCurrentSong,
     setMutedSong,
     setPlaySong,
     setRandomSong,
     setRepeatSong,
+    setSongId,
     setSongSrc,
     setVolumeSong,
-} from "~/redux/PlayerSlice";
+} from "~/redux/playerSlice";
 import styles from "./Player.module.scss";
-import axios from "axios";
 import { getTimeSong } from "~/funtion";
 
 const cx = classNames.bind(styles);
@@ -41,23 +44,27 @@ const cx = classNames.bind(styles);
 function Player({ data }) {
     const dispatch = useDispatch();
 
-    const isPlay = useSelector((state) => state.player.isPlay);
-    const songSrc = useSelector((state) => state.player.songSrc);
-    const infoCurrentSong = useSelector((state) => state.player.infoCurrentSong);
-    const isRandom = useSelector((state) => state.player.isRandom);
-    const isRepeat = useSelector((state) => state.player.isRepeat);
-    const songId = useSelector((state) => state.player.songId);
-    const isMuted = useSelector((state) => state.player.isMuted);
-    const durationSong = useSelector((state) => state.player.durationSong);
-    const currentTimeSong = useSelector((state) => state.player.currentTimeSong);
-    const volumeSong = useSelector((state) => state.player.volumeSong);
-
+    const [showMvAndPlay, setShowMvAndPlay] = useState(false);
     const [showListMusicLove, setShowListMusicLove] = useState(false);
+
+    const isPlaySong = useSelector((state) => state.player.isPlaySong);
+    const isMuted = useSelector((state) => state.player.isMuted);
+    const isRepeat = useSelector((state) => state.player.isRepeat);
+    const isRandom = useSelector((state) => state.player.isRandom);
+    const songSrc = useSelector((state) => state.player.songSrc);
+    const songId = useSelector((state) => state.player.songId);
+    const volumeSong = useSelector((state) => state.player.volumeSong);
+    const currentInfoSong = useSelector((state) => state.player.currentInfoSong);
+    const currentTimeSong = useSelector((state) => state.player.currentTimeSong);
+    const currentIndexSong = useSelector((state) => state.player.currentIndexSong);
+    const playlistSong = useSelector((state) => state.player.playlistSong);
+    // const playlistRandomSong = useSelector((state) => state.player.playlistRandomSong);
+
     // const [currentDurationSong, setCurrentDurationSong] = useState(() => getTimeSong(currentTimeSong));
 
     const audioRef = useRef();
     const durationAudioRef = useRef();
-    const volumeAudioRef = useRef();
+    // const volumeAudioRef = useRef();
 
     const handleShowListMusicLove = () => {
         setShowListMusicLove(!showListMusicLove);
@@ -67,11 +74,12 @@ function Player({ data }) {
         if (!songSrc) {
             alert("Please select a song");
         } else {
-            dispatch(setPlaySong(!isPlay));
+            dispatch(setPlaySong(!isPlaySong));
         }
     };
 
     const handleMutedSong = () => {
+        console.log(isMuted);
         dispatch(setMutedSong());
         isMuted ? dispatch(setVolumeSong(0)) : dispatch(setVolumeSong(1));
         // console.log(audioRef.current.volume);
@@ -86,12 +94,51 @@ function Player({ data }) {
         // console.log(e.target.value);
         if (!!audioRef.current) {
             dispatch(setCurrentTimeSong(parseInt(e.target.value)));
-            audioRef.current.currentTime = currentTimeSong;
+            audioRef.current.currentTime = e.target.value;
         }
     };
 
+    const handleNextSong = () => {
+        if (songSrc && playlistSong.length > 0) {
+            // dispatch(setCurrentTimeSong(0));
+            if (currentIndexSong >= playlistSong.length - 1) {
+                dispatch(setCurrentIndexSong(0));
+                dispatch(setInfoCurrentSong(playlistSong[0]));
+                dispatch(setSongId(playlistSong[0].encodeId));
+            } else {
+                dispatch(setCurrentIndexSong(currentIndexSong + 1));
+                dispatch(setInfoCurrentSong(playlistSong[currentIndexSong + 1]));
+                dispatch(setSongId(playlistSong[currentIndexSong + 1].encodeId));
+            }
+        } else {
+            alert("Please select a playlist");
+        }
+    };
+
+    const handlePrevSong = () => {
+        if (songSrc && playlistSong.length > 0) {
+            // dispatch(setCurrentTimeSong(0));
+            if (currentIndexSong <= 0) {
+                dispatch(setCurrentIndexSong(playlistSong.length - 1));
+                dispatch(setInfoCurrentSong(playlistSong[playlistSong.length - 1]));
+                dispatch(setSongId(playlistSong[playlistSong.length - 1].encodeId));
+            } else {
+                dispatch(setCurrentIndexSong(currentIndexSong - 1));
+                dispatch(setInfoCurrentSong(playlistSong[currentIndexSong - 1]));
+                dispatch(setSongId(playlistSong[currentIndexSong - 1].encodeId));
+            }
+        } else {
+            alert("Please select a playlist");
+        }
+    };
+
+    const handleRandomSong = () => {
+        dispatch(setRandomSong(!isRandom));
+    };
     useEffect(() => {
+        dispatch(setPlaySong(false));
         const fetchApi = async () => {
+            dispatch(setCurrentTimeSong(0));
             try {
                 const res = await httpRequest.get("song", {
                     params: {
@@ -114,9 +161,9 @@ function Player({ data }) {
 
     useEffect(() => {
         if (songSrc) {
-            isPlay ? audioRef.current.play() : audioRef.current.pause();
+            isPlaySong ? audioRef.current.play() : audioRef.current.pause();
         }
-    }, [isPlay, songSrc]);
+    }, [isPlaySong, songSrc]);
 
     useEffect(() => {
         if (!!audioRef.current) {
@@ -129,20 +176,20 @@ function Player({ data }) {
         const handleAudioSong = () => {
             dispatch(setPlaySong(false));
         };
-        if (!!songSrc && durationSong) {
+        if (!!songSrc) {
             durationAudioRef.current.addEventListener("mousedown", handleAudioSong);
         }
-    }, [dispatch, durationSong, songSrc]);
+    }, [dispatch, songSrc]);
 
     useEffect(() => {
         const handleAudioSong = () => {
             dispatch(setPlaySong(true));
             audioRef.current.play();
         };
-        if (!!songSrc && durationSong) {
+        if (!!songSrc) {
             durationAudioRef.current.addEventListener("mouseup", handleAudioSong);
         }
-    }, [dispatch, durationSong, songSrc]);
+    }, [dispatch, songSrc]);
     //event audio
 
     useEffect(() => {
@@ -154,21 +201,40 @@ function Player({ data }) {
         }
     }, [dispatch, songSrc]);
 
+    useEffect(() => {
+        const handleSong = () => {
+            if (isRandom) {
+                const nextIndexSong = Math.floor(Math.random() * playlistSong.length);
+                const nextSong = playlistSong[nextIndexSong];
+                dispatch(setCurrentIndexSong(nextIndexSong));
+                dispatch(setInfoCurrentSong(nextSong));
+                dispatch(setSongId(nextSong.encodeId));
+            }
+            if (isRepeat) {
+                dispatch(setPlaySong(true));
+            }
+            dispatch(setPlaySong(false));
+        };
+        if (audioRef.current && playlistSong.length > 0) {
+            audioRef.current.addEventListener("ended", handleSong);
+        }
+    }, [dispatch, isRandom, isRepeat, playlistSong]);
+
     return (
         <div className={cx("wrapper")}>
             <div className={cx("song-info")}>
-                <img src={infoCurrentSong.thumbnail} alt={infoCurrentSong.title} className={cx("song-info__img")} />
+                <img src={currentInfoSong?.thumbnail} alt={currentInfoSong?.title} className={cx("song-info__img")} />
                 <div className={cx("song-info__body")}>
-                    <div className={cx("title-wrapper", { animationText: isPlay })}>
+                    <div className={cx("title-wrapper", { animationText: isPlaySong })}>
                         <Link to className={cx("title-link")}>
-                            <span>{infoCurrentSong.title}</span>
+                            <span>{currentInfoSong?.title}</span>
                         </Link>
                         <Link to className={cx("title-link", "title-link--second")}>
-                            <span>{infoCurrentSong.title}</span>
+                            <span>{currentInfoSong?.title}</span>
                         </Link>
                     </div>
                     <h3 className={cx("artists")}>
-                        {infoCurrentSong.artists.map((artist, index) => (
+                        {currentInfoSong?.artists.map((artist, index) => (
                             <Link to={artist?.link} key={index} className={cx("artists-name")}>
                                 {artist.name}
                             </Link>
@@ -178,35 +244,21 @@ function Player({ data }) {
             </div>
             <div className={cx("song-control")}>
                 <div className={cx("song-control__top")}>
-                    <Button
-                        className={cx("song-control__btn", { isRandom })}
-                        onClick={() => dispatch(setRandomSong())}
-                        circle
-                        hover
-                    >
+                    <Button className={cx({ isRandom })} onClick={handleRandomSong} circle hover>
                         <FontAwesomeIcon icon={faRandom} />
                     </Button>
-                    <Button className={cx("song-control__btn")} circle hover>
+                    <Button disabled={playlistSong.length <= 0} className={cx()} circle hover onClick={handlePrevSong}>
                         <FontAwesomeIcon icon={faStepBackward} />
                     </Button>
-                    {isPlay && songSrc ? (
-                        <Button className={cx("song-control__btn")} onClick={handlePLaySong} circle outline>
-                            <FontAwesomeIcon icon={faPause} />
-                        </Button>
-                    ) : (
-                        <Button className={cx("song-control__btn")} onClick={handlePLaySong} circle outline>
-                            <FontAwesomeIcon icon={faPlay} />
-                        </Button>
-                    )}
-                    <Button className={cx("song-control__btn")} circle hover>
+
+                    <Button disabled={!songSrc} className={cx()} onClick={handlePLaySong} circle outline>
+                        {isPlaySong && songSrc ? <FontAwesomeIcon icon={faPause} /> : <FontAwesomeIcon icon={faPlay} />}
+                    </Button>
+
+                    <Button disabled={playlistSong.length <= 0} className={cx()} circle hover onClick={handleNextSong}>
                         <FontAwesomeIcon icon={faStepForward} />
                     </Button>
-                    <Button
-                        className={cx("song-control__btn", { isRepeat })}
-                        onClick={() => dispatch(setRepeatSong())}
-                        circle
-                        hover
-                    >
+                    <Button className={cx({ isRepeat })} onClick={() => dispatch(setRepeatSong())} circle hover>
                         <FontAwesomeIcon icon={faUndo} />
                     </Button>
                 </div>
@@ -215,7 +267,7 @@ function Player({ data }) {
                     <div className={cx("control-range")}>
                         <input
                             min="0"
-                            max={durationSong}
+                            max={currentInfoSong.duration}
                             value={currentTimeSong}
                             // max="100"
                             type="range"
@@ -224,19 +276,25 @@ function Player({ data }) {
                         />
                     </div>
                     <audio ref={audioRef} src={songSrc} loop={isRepeat && songSrc}></audio>
-                    <span>{infoCurrentSong.timeSong}</span>
+                    <span>{getTimeSong(currentInfoSong.duration)}</span>
                 </div>
             </div>
             <div className={cx("song-actions")}>
-                <Button circle hover>
-                    <FontAwesomeIcon icon={faFilm} />
-                </Button>
-                <Button circle hover>
-                    <FontAwesomeIcon icon={faMicrophoneAlt} />
-                </Button>
-                <Button circle hover>
-                    <FontAwesomeIcon icon={faWindowRestore} />
-                </Button>
+                <Tippy content="Mv bài hát" placement="top" delay={[280, 150]}>
+                    <Button circle hover onClick={() => setShowMvAndPlay(!showMvAndPlay)}>
+                        <FontAwesomeIcon icon={faFilm} />
+                    </Button>
+                </Tippy>
+                <Tippy content="Lời bài hát" placement="top" delay={[280, 150]}>
+                    <Button circle hover>
+                        <FontAwesomeIcon icon={faMicrophoneAlt} />
+                    </Button>
+                </Tippy>
+                <Tippy content="Chế độ cửa sổ" placement="top" delay={[280, 150]}>
+                    <Button circle hover>
+                        <FontAwesomeIcon icon={faWindowRestore} />
+                    </Button>
+                </Tippy>
                 <div className={cx("song-actions__volume")}>
                     <Button circle hover className={cx("song-actions__volume-btn")} onClick={handleMutedSong}>
                         {volumeSong === 0 ? (
@@ -246,7 +304,7 @@ function Player({ data }) {
                         )}
                     </Button>
                     <div className={cx("control-range", "control-range--volume")}>
-                        <input min="0" max="100" value={volumeSong * 100} onChange={handleVolumeSong} type="range" />
+                        <input type="range" min={0} max={100} value={volumeSong * 100} onChange={handleVolumeSong} />
                     </div>
                 </div>
                 <Button
@@ -257,9 +315,7 @@ function Player({ data }) {
                 >
                     <FontAwesomeIcon icon={faListOl} />
                 </Button>
-                <Modal isOpen={showListMusicLove} fromRight>
-                    <Button>close</Button>
-                </Modal>
+                <Modal modalMv isOpen={showMvAndPlay} onRequestClose={() => setShowMvAndPlay(!showMvAndPlay)} />
             </div>
         </div>
     );

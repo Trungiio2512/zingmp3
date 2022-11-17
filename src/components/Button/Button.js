@@ -16,6 +16,7 @@ const Button = forwardRef(
             secondary,
             circle,
             circleSmall,
+            circleSpecial,
             square,
             rightIcon,
             outline,
@@ -54,6 +55,8 @@ const Button = forwardRef(
             [className]: className,
             primary,
             circle,
+            circleSpecial,
+
             secondary,
             disabled,
             outline,

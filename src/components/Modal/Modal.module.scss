@@ -5,89 +5,44 @@
 }
 
 @mixin FadeIn {
-    animation: fadeIn 0.3s linear;
+    animation: fadeIn 0.3s linear 1;
 }
 
-@mixin ShowFromRight {
-    animation: showFromRight 0.3s linear;
-}
-
-@mixin GrowUp {
-    animation: grow-up 0.3s linear;
-}
-
-@mixin GrowDown {
-    animation: grow-down 0.3s linear forwards;
+@mixin ShowFromBottom {
+    animation: showFromBottom 0.3s linear 1;
 }
 
 @mixin FadeOut {
     animation: fadeOut 0.3s linear forwards;
 }
 
+@mixin CloseToBottom {
+    animation: closeToBottom 0.3s linear 1forwards;
+}
+
 .wrapper {
     position: fixed;
-    height: calc(100% - var(--player-height));
     z-index: 999;
     display: flex;
-}
-
-.wrapper.fromRight {
-    top: 0;
-    height: calc(100% - var(--player-height));
-    right: 0;
-    .container {
-        min-width: 400px;
-        padding: 48px;
-    }
-}
-
-.wrapper.center {
     inset: 0;
-    align-items: center;
-    justify-content: center;
-    .container,
-    .overlay {
-        @include GrowUp;
-    }
-    .container {
-        border-radius: 12px;
-        padding: 24px;
-        min-width: 480px;
-    }
 }
 
-.wrapper.center.closesing {
+.wrapper.closesing {
     .container {
         @include FadeOut;
-        @include GrowDown;
+        @include CloseToBottom;
     }
-}
-
-.wrapper.fromRight .container {
-    @include ShowFromRight;
-}
-
-.overlay {
-    position: fixed;
-    inset: 0;
-    background-color: rgba($color: #000, $alpha: 0.5);
-    @include FadeIn;
 }
 
 .container {
     position: relative;
-    background-color: #fff;
-    box-shadow: 3px 0 2px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    height: 100%;
+    // background-color: rgba(0, 0, 0, 0.5);
+    background-color: #1e1e1e;
+    // filter: blur(1rem);
     @include FadeIn;
-}
-
-.close-btn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    font-size: 2rem;
-    padding: 12px;
-    cursor: pointer;
+    @include ShowFromBottom;
 }
 
 @keyframes fadeIn {
@@ -108,28 +63,20 @@
     }
 }
 
-@keyframes grow-up {
+@keyframes showFromBottom {
     from {
-        transform: scale(0.2);
+        transform: translate(0, 100%);
     }
     to {
-        transform: scale(1);
-    }
-}
-@keyframes grow-down {
-    from {
-        transform: scale(1);
-    }
-    to {
-        transform: scale(0.2);
+        transform: translate(0, 0);
     }
 }
 
-@keyframes showFromRight {
+@keyframes closeToBottom {
     from {
-        transform: translateX(100%);
+        transform: translate(0, 0);
     }
     to {
-        transform: translateX(0);
+        transform: translate(0, 100%);
     }
 }

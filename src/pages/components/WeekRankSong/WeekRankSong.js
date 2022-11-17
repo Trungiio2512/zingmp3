@@ -3,30 +3,36 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import Button from "~/components/Button";
 import { Grid, GridItem } from "~/components/Grid";
-import Song from "~/layouts/components/Song";
+import { Media } from "~/layouts/components/Media";
 import styles from "./WeekRankSong.module.scss";
-function WeekRankSong({ data, rankNumber = 5 }) {
-    console.log(data);
+
+function WeekRankSong({ data, rankNumber = 5, onHanldeSong, onHandlePlaySong, idListRankSong }) {
+    // console.log(data);
     const [vnSongs, setVnSongs] = useState({ ...data?.vn });
     const [usSongs, setUsSongs] = useState({ ...data?.us });
     const [koreaSongs, setKoreaSongs] = useState({ ...data?.korea });
-    console.log(usSongs);
     return (
         <div className={styles.wrapper}>
             <h1 className={styles.heading}>Bảng xếp hạng tuần</h1>
             <Grid>
-                <GridItem c="12" m="6" l="4">
+                <GridItem c={12} m={6} l={4}>
                     <div className={styles.country}>
                         <h3 className={styles.country__name}>
                             <span>Việt Nam</span>
-                            <Button circle circleSmall primary>
+                            <Button
+                                circle
+                                circleSmall
+                                primary
+                                onClick={() => onHandlePlaySong(vnSongs?.items, vnSongs?.playlistId)}
+                            >
                                 <FontAwesomeIcon icon={faPlay} />
                             </Button>
                         </h3>
                         {vnSongs?.items.map(
                             (song, index) =>
                                 index < rankNumber && (
-                                    <Song
+                                    <Media
+                                        onClick={() => onHanldeSong(song, vnSongs?.items, vnSongs?.playlistId)}
                                         key={song?.encodeId}
                                         rank
                                         rankNumber={index + 1}
@@ -44,18 +50,24 @@ function WeekRankSong({ data, rankNumber = 5 }) {
                         </Button>
                     </div>
                 </GridItem>
-                <GridItem c="12" m="6" l="4">
+                <GridItem c={12} m={6} l={4}>
                     <div className={styles.country}>
                         <h3 className={styles.country__name}>
                             <span>us-uk</span>
-                            <Button circle circleSmall primary>
+                            <Button
+                                circle
+                                circleSmall
+                                primary
+                                onClick={() => onHandlePlaySong(usSongs?.items, usSongs?.playlistId)}
+                            >
                                 <FontAwesomeIcon icon={faPlay} />
                             </Button>
                         </h3>
                         {usSongs?.items.map(
                             (song, index) =>
                                 index < rankNumber && (
-                                    <Song
+                                    <Media
+                                        onClick={() => onHanldeSong(song, usSongs?.items, usSongs?.playlistId)}
                                         key={song?.encodeId}
                                         rank
                                         rankNumber={index + 1}
@@ -73,18 +85,24 @@ function WeekRankSong({ data, rankNumber = 5 }) {
                         </Button>
                     </div>
                 </GridItem>
-                <GridItem c="12" m="6" l="4">
+                <GridItem c={12} m={6} l={4}>
                     <div className={styles.country}>
                         <h3 className={styles.country__name}>
                             <span>k-pop</span>
-                            <Button circle circleSmall primary>
+                            <Button
+                                circle
+                                circleSmall
+                                primary
+                                onClick={() => onHandlePlaySong(koreaSongs?.items, koreaSongs?.playlistId)}
+                            >
                                 <FontAwesomeIcon icon={faPlay} />
                             </Button>
                         </h3>
                         {koreaSongs?.items.map(
                             (song, index) =>
                                 index < rankNumber && (
-                                    <Song
+                                    <Media
+                                        onClick={() => onHanldeSong(song, koreaSongs?.items, koreaSongs?.playlistId)}
                                         key={song?.encodeId}
                                         rank
                                         rankNumber={index + 1}
