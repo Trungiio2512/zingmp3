@@ -5,9 +5,10 @@
     border-radius: 8px;
     display: block;
     width: 100%;
-    padding: 32px 0;
-    @include sm {
-        padding: 12px 0;
+    padding: 16px 0;
+    margin-bottom: 24px;
+    @include mobile {
+        padding: 8px 0;
     }
 }
 
@@ -22,5 +23,8 @@
     &__image {
         width: 100%;
         object-fit: cover;
+    }
+    @include mobile {
+        padding: 0;
     }
 }

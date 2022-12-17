@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
@@ -38,14 +38,17 @@ import {
 } from "~/redux/playerSlice";
 import styles from "./Player.module.scss";
 import { getTimeSong } from "~/funtion";
+import Input from "~/components/Input";
 
 const cx = classNames.bind(styles);
 
 function Player({ data }) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [showMvAndPlay, setShowMvAndPlay] = useState(false);
     const [showListMusicLove, setShowListMusicLove] = useState(false);
+    const [isLoadingSong, setLoadingSong] = useState(false);
 
     const isPlaySong = useSelector((state) => state.player.isPlaySong);
     const isMuted = useSelector((state) => state.player.isMuted);
@@ -58,6 +61,10 @@ function Player({ data }) {
     const currentTimeSong = useSelector((state) => state.player.currentTimeSong);
     const currentIndexSong = useSelector((state) => state.player.currentIndexSong);
     const playlistSong = useSelector((state) => state.player.playlistSong);
+
+    const videoId = useSelector((state) => state.mv.videoId);
+    const titleVideo = useSelector((state) => state.mv.title);
+    const linkVideo = useSelector((state) => state.mv.link);
     // const playlistRandomSong = useSelector((state) => state.player.playlistRandomSong);
 
     // const [currentDurationSong, setCurrentDurationSong] = useState(() => getTimeSong(currentTimeSong));
@@ -88,6 +95,9 @@ function Player({ data }) {
     const handleVolumeSong = (e) => {
         const volume = e.target.value;
         dispatch(setVolumeSong(volume / 100));
+        if (volume === 0) {
+            dispatch(setMutedSong());
+        }
     };
 
     const handleChangeDuration = (e) => {
@@ -137,6 +147,7 @@ function Player({ data }) {
     };
     useEffect(() => {
         dispatch(setPlaySong(false));
+        // dispatch(setLoadingSong(true));
         const fetchApi = async () => {
             dispatch(setCurrentTimeSong(0));
             try {
@@ -145,12 +156,15 @@ function Player({ data }) {
                         id: songId,
                     },
                 });
+                console.log(res.data);
                 dispatch(setSongSrc(res.data[128]));
                 // if (res.err === 0) {
                 // } else if (res.err === -1110) {
                 //     const resMore = await axios.get(res.url);
                 //     console.log(resMore);
                 // }
+                // dispatch(setLoadingSong(false));
+
                 dispatch(setPlaySong(true));
             } catch (error) {
                 return;
@@ -196,7 +210,7 @@ function Player({ data }) {
         const handeValueInputAudio = () => {
             dispatch(setCurrentTimeSong(audioRef.current.currentTime));
         };
-        if (!!songSrc) {
+        if (!!songSrc && audioRef.current) {
             audioRef.current.addEventListener("timeupdate", handeValueInputAudio);
         }
     }, [dispatch, songSrc]);
@@ -264,8 +278,7 @@ function Player({ data }) {
                 </div>
                 <div className={cx("song-control__bottom")}>
                     <span>{getTimeSong(currentTimeSong)}</span>
-                    <div className={cx("control-range")}>
-                        <input
+                    {/* <input
                             min="0"
                             max={currentInfoSong.duration}
                             value={currentTimeSong}
@@ -273,6 +286,16 @@ function Player({ data }) {
                             type="range"
                             ref={durationAudioRef}
                             onChange={handleChangeDuration}
+                        /> */}
+                    <div className={cx("song-control__bottom-time")}>
+                        <Input
+                            min={0}
+                            max={currentInfoSong.duration}
+                            value={currentTimeSong}
+                            // max="100"
+                            type="range"
+                            ref={durationAudioRef}
+                            onHandleChange={handleChangeDuration}
                         />
                     </div>
                     <audio ref={audioRef} src={songSrc} loop={isRepeat && songSrc}></audio>
@@ -281,7 +304,19 @@ function Player({ data }) {
             </div>
             <div className={cx("song-actions")}>
                 <Tippy content="Mv bài hát" placement="top" delay={[280, 150]}>
-                    <Button circle hover onClick={() => setShowMvAndPlay(!showMvAndPlay)}>
+                    <Button
+                        disabled={!videoId}
+                        circle
+                        hover
+                        onClick={() => {
+                            navigate(linkVideo, {
+                                state: {
+                                    title: titleVideo,
+                                    id: videoId,
+                                },
+                            });
+                        }}
+                    >
                         <FontAwesomeIcon icon={faFilm} />
                     </Button>
                 </Tippy>
@@ -303,8 +338,8 @@ function Player({ data }) {
                             <FontAwesomeIcon icon={faVolumeUp} />
                         )}
                     </Button>
-                    <div className={cx("control-range", "control-range--volume")}>
-                        <input type="range" min={0} max={100} value={volumeSong * 100} onChange={handleVolumeSong} />
+                    <div className={cx("song-actions__volume-box")}>
+                        <Input min={0} max={100} value={volumeSong * 100} onHandleChange={handleVolumeSong} />
                     </div>
                 </div>
                 <Button

@@ -8,7 +8,7 @@ import httpRequest from "~/untils/httpRequest";
 import ShowRankSong from "~/pages/components/ShowRankSong";
 import styles from "./NewMusic.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { currentIndexSongPlay, playlistCanPlay } from "~/funtion";
+import { getCurrentIndex, playlistCanPlay } from "~/funtion";
 import {
     setCurrentIndexSong,
     setIdPlaylistSong,
@@ -34,7 +34,7 @@ function NewMusic() {
         if (song?.isWorldWide) {
             if (idPlaylist !== idListRankSong) {
                 const newPlaylist = await playlistCanPlay(playlist);
-                const newCurrentIndexSong = await currentIndexSongPlay(song?.encodeId, newPlaylist);
+                const newCurrentIndexSong = await getCurrentIndex(song?.encodeId, newPlaylist);
                 dispatch(setIdPlaylistSong(idListRankSong));
                 dispatch(setPlaylistSong(newPlaylist));
                 dispatch(setCurrentIndexSong(newCurrentIndexSong));
@@ -47,7 +47,7 @@ function NewMusic() {
                 } else {
                     dispatch(setInfoCurrentSong(song));
                     dispatch(setSongId(song?.encodeId));
-                    const songIndex = await currentIndexSongPlay(song?.encodeId, playlistSong);
+                    const songIndex = await getCurrentIndex(song?.encodeId, playlistSong);
                     dispatch(setCurrentIndexSong(songIndex));
                 }
             }

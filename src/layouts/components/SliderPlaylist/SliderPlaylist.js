@@ -9,7 +9,6 @@ import ButtonSlider from "~/components/Button/ButtonSlider";
 const cx = classNames.bind(styles);
 
 function SliderPlaylist({ data }) {
-    console.log(data);
     const settings = {
         infinite: true,
         slidesToShow: 5,

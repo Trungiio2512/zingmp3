@@ -34,14 +34,14 @@ const playlistCanPlay = (playlist) => {
     return playlistCanPlay;
 };
 
-const currentIndexSongPlay = (songId, playlist) => {
-    const songIndex = Promise.resolve(playlist.findIndex((song) => song?.encodeId === songId));
-    return songIndex;
+const getCurrentIndex = (id, playlist) => {
+    const index = Promise.resolve(playlist.findIndex((item) => item?.encodeId === id));
+    return index;
 };
 
-const checkSongInPlaylist = (songId, playlist) => {
+const checkHasInList = (songId, playlist) => {
     const check = playlist.some((song) => song?.encodeId === songId);
     return check;
 };
 
-export { getTimeSong, setFollower, playlistCanPlay, currentIndexSongPlay, getTotalTimePlaylist, checkSongInPlaylist };
+export { getTimeSong, setFollower, playlistCanPlay, getCurrentIndex, getTotalTimePlaylist, checkHasInList };

@@ -11,13 +11,15 @@
     padding: 15px var(--padding-content);
     background-color: var(--layout-bg);
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.08);
-    z-index: 9;
+    z-index: 12;
 
-    @include lt-lg {
+    @include max-pc-low {
         width: calc(100% - 70px);
     }
     @include mobile {
         width: 100%;
+        padding-left: 8px;
+        padding-right: 8px;
     }
 }
 //menu
@@ -28,25 +30,53 @@
     height: 100%;
     padding: 0 15px;
     font-size: 1.8rem;
-    // justify-content: center;
-    // padding: 15px;
     margin-right: 24px;
+    position: relative;
     display: none;
+    color: var(--white);
     @include mobile {
         display: flex;
+        margin-right: 8px;
     }
 }
 
-.header-menu-sidebar {
+.header-sidebar.showMenu {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.header-sidebar {
+    transition: all 0.4s ease-in-out;
+    opacity: 0;
+    transform: translateX(calc(-100% - 70px));
     position: absolute;
     top: 0;
     left: 0;
     height: 100%;
+    display: none;
     @include mobile {
         z-index: 999;
-        transform: translateX(0);
-        width: 240px;
-        height: calc(100vh - var(--player-height));
+        // transform: translateX();
+        width: calc(100vw - 70px);
+        height: 100vh;
+        display: block;
+    }
+    &__btn-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        // color: var(--)
+        z-index: 13;
+    }
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 70px;
+        background-color: rgba(0, 0, 0, 0.7);
     }
 }
 
@@ -55,12 +85,13 @@
 //actions
 .header-actions {
     display: flex;
+    margin-left: 24px;
 
     &__btn ~ &__btn {
         margin-left: 12px;
     }
 
-    @include mobile {
+    @include max-pc-low {
         display: none;
     }
 }

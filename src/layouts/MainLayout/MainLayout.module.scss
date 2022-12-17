@@ -19,18 +19,17 @@
     margin-left: 240px;
     display: flex;
     flex-direction: column;
-    margin-top: var(--header-height);
-    padding: 32px var(--padding-content) 0 var(--padding-content);
+    margin-top: calc(var(--header-height) + 12px);
+    padding: 0 var(--padding-content);
     margin-bottom: calc(var(--player-height) + 20px);
 
-    @include lt-lg {
+    @include max-pc-low {
         margin-left: 70px;
-    }
-    @include lt-sm {
-        padding: 0;
     }
 
     @include mobile {
+        padding: 0 8px;
+        margin-bottom: calc(var(--player-height) * 2);
         margin-left: 0;
     }
 }

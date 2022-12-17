@@ -7,12 +7,20 @@ $search-btn-width: 40px;
 
 .search,
 .search-result {
-    width: 540px;
-    color: var(--text-placeholder);
+    // max-width: 540px;
+    width: 100%;
 
-    // @include mobile {
-    //     width: 100%;
-    // }
+    color: var(--text-placeholder);
+}
+.search-result {
+    width: calc(100vw - var(--sidebar-width) * 2 - 70px);
+    @include max-mobile-max-pc-low {
+        width: calc(100vw - 70px - var(--padding-content) * 2);
+    }
+
+    @include mobile {
+        width: calc(100vw - 70px);
+    }
 }
 
 .search {
@@ -24,6 +32,7 @@ $search-btn-width: 40px;
     border: 1px solid transparent;
     caret-color: var(--purple-primary);
     position: relative;
+    width: 100%;
 
     &::after {
         content: "";
@@ -87,8 +96,6 @@ $search-btn-width: 40px;
     font-size: 2rem;
     border-radius: 8px;
     cursor: pointer;
-    color: rgba(22, 24, 35, 0.34);
-
     &:hover {
         background: rgba(22, 24, 35, 0.03);
     }

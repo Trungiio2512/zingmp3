@@ -87,7 +87,7 @@
         width: calc(100% - 120px);
     }
 
-    @include lt-lg {
+    @include max-pc-low {
         display: block;
         .card-duration {
             display: flex;

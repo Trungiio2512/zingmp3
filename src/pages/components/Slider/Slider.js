@@ -58,13 +58,15 @@ function SliderShow({ data }) {
         ],
     };
     return (
-        <div className={cx("slider-container")}>
-            <SliderSlick {...settings}>
-                {data.map((item, index) => {
-                    return <SliderItem data={item} key={index} />;
-                })}
-            </SliderSlick>
-        </div>
+        data && (
+            <div className={cx("slider-container")}>
+                <SliderSlick {...settings}>
+                    {data.map((item, index) => {
+                        return <SliderItem data={item} key={index} />;
+                    })}
+                </SliderSlick>
+            </div>
+        )
     );
 }
 

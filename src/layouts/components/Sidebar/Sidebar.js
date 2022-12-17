@@ -98,8 +98,8 @@ function Sidebar({ mobile = false }) {
                             to={"/mv"}
                         />
                     </Menu>
-                    <Box login />
-                    <Box vip />
+                    <Box className={cx("box", { showFull })} login />
+                    <Box className={cx("box", { showFull })} vip />
                 </div>
             </div>
             <Button className={cx("sidebar-btn--add-playlist")} leftIcon={<FontAwesomeIcon icon={faPlus} />}>

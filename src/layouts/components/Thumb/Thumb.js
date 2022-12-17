@@ -15,7 +15,7 @@ function Thumb({ title, isVideo, thumbNail, onClick, onHandlePlay, to, id, isPla
     if (to) {
         Comp = Link;
         props.to = to;
-        props.state = { id: id };
+        props.state = { id: id, title: title };
     } else {
         Comp = "div";
     }

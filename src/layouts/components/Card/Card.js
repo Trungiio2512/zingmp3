@@ -22,7 +22,7 @@ function Card({
 }) {
     const navigate = useNavigate();
     const handlePlay = (to, id) => {
-        navigate(to, { state: { id: id, play: true } });
+        navigate(to, { state: { id: id, play: true, title: title } });
     };
     return (
         <div className={cx("card", { mvRecommend })}>

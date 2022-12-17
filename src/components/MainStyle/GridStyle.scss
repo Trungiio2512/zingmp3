@@ -22,8 +22,8 @@
 }
 
 .col {
-    padding-left: 4px;
-    padding-right: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 .row.no-gutters .col {
@@ -142,13 +142,13 @@
 /* >= Tablet */
 @media (min-width: 740px) {
     .row {
-        margin-left: -8px;
-        margin-right: -8px;
+        margin-left: -12px;
+        margin-right: -12px;
     }
 
     .col {
-        padding-left: 8px;
-        padding-right: 8px;
+        padding-left: 12px;
+        padding-right: 12px;
     }
 
     .m-0 {
@@ -278,8 +278,8 @@
 /* PC medium resolution > */
 @media (min-width: 1113px) {
     .row {
-        margin-left: -12px;
-        margin-right: -12px;
+        margin-left: -16px;
+        margin-right: -16px;
     }
 
     .row.sm-gutter {
@@ -288,8 +288,8 @@
     }
 
     .col {
-        padding-left: 12px;
-        padding-right: 12px;
+        padding-left: 16px;
+        padding-right: 16px;
     }
 
     .row.sm-gutter .col {

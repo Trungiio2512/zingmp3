@@ -8,9 +8,9 @@ import styles from "./WeekRankSong.module.scss";
 
 function WeekRankSong({ data, rankNumber = 5, onHanldeSong, onHandlePlaySong, idListRankSong }) {
     // console.log(data);
-    const [vnSongs, setVnSongs] = useState({ ...data?.vn });
-    const [usSongs, setUsSongs] = useState({ ...data?.us });
-    const [koreaSongs, setKoreaSongs] = useState({ ...data?.korea });
+    const [vnSongs, setVnSongs] = useState(data?.vn);
+    const [usSongs, setUsSongs] = useState(data?.us);
+    const [koreaSongs, setKoreaSongs] = useState(data?.korea);
     return (
         <div className={styles.wrapper}>
             <h1 className={styles.heading}>Bảng xếp hạng tuần</h1>

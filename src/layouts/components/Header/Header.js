@@ -1,4 +1,4 @@
-import { faBars, faGem } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faGem, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import classNames from "classnames/bind";
@@ -12,14 +12,17 @@ import Sidebar from "~/layouts/components/Sidebar";
 const cx = classNames.bind(styles);
 
 function Header() {
-    const [showMenu, setShowMEnu] = useState(false);
+    const [showMenu, setShowMenu] = useState(false);
     return (
         <div className={cx("wrapper")}>
-            <div className={cx("header-menu")}>
+            <div className={cx("header-menu")} onClick={() => setShowMenu(!showMenu)}>
                 <FontAwesomeIcon icon={faBars} />
-                {/* <div className={cx("header-menu-sidebar")}>
-                    <Sidebar mobile />
-                </div> */}
+            </div>{" "}
+            <div className={cx("header-sidebar", { showMenu })}>
+                <Sidebar mobile />
+                <Button className={cx("header-sidebar__btn-close")} onClick={() => setShowMenu(!showMenu)}>
+                    <FontAwesomeIcon icon={faTimes} />
+                </Button>
             </div>
             <Search />
             <div className={cx("header-actions")}>

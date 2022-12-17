@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import Modal from "~/components/Modal";
@@ -27,7 +27,7 @@ import {
 } from "~/redux/playerSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, GridItem } from "~/components/Grid";
-import { currentIndexSongPlay, playlistCanPlay } from "~/funtion";
+import { getCurrentIndex, playlistCanPlay } from "~/funtion";
 
 const cx = classNames.bind(styles);
 
@@ -35,6 +35,10 @@ const typeSection = {};
 
 function DetailArtist() {
     const { nameArtist } = useParams();
+    // const location = useLocation();
+
+    // const { title } = location.state;
+
     const [data, setData] = useState(null);
     const [isLoading, setLoading] = useState(null);
     const [isFailed, setFailed] = useState(null);
@@ -61,7 +65,7 @@ function DetailArtist() {
                 dispatch(setInfoCurrentSong(song));
                 dispatch(setSongId(song?.encodeId));
                 dispatch(setCurrentTimeSong(0));
-                const songIndex = await currentIndexSongPlay(song?.encodeId, newPlaylist);
+                const songIndex = await getCurrentIndex(song?.encodeId, newPlaylist);
                 dispatch(setCurrentIndexSong(songIndex));
                 // console.log(playlistRamdom(newPlaylist));
             } else {
@@ -71,7 +75,7 @@ function DetailArtist() {
                     dispatch(setInfoCurrentSong(song));
                     dispatch(setSongId(song?.encodeId));
                     dispatch(setCurrentTimeSong(0));
-                    const songIndex = await currentIndexSongPlay(song?.encodeId, playlistSong);
+                    const songIndex = await getCurrentIndex(song?.encodeId, playlistSong);
                     dispatch(setCurrentIndexSong(songIndex));
                 }
             }

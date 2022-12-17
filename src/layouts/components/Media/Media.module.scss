@@ -48,21 +48,21 @@
 
 .media {
     @include dfCenter;
+    justify-content: space-between;
     border: 1px solid transparent;
     border-radius: 8px;
+    // background-color: rgba(0, 0, 0, 0.2);
     &-left {
-        flex: 1;
-        // width: 50%;
+        flex: 2;
         overflow: hidden;
         @include dfCenter;
     }
 
     &-center {
+        flex-grow: 0;
+    }
+    &-right {
         flex: 1;
-        // width: 30%;
-        @include lt-lg {
-            flex-grow: 0;
-        }
     }
     &:hover .thumb-control {
         display: flex;
@@ -77,10 +77,13 @@
     &:hover .thumb-img.thumb-album {
         transform: rotate(120deg);
     }
-    &-right {
-        flex-basis: auto;
-        flex-grow: 0;
-        flex-shrink: 0;
+}
+
+.media {
+    @include max-pc-low {
+        &-center {
+            display: none;
+        }
     }
 }
 
@@ -270,7 +273,7 @@
             text-decoration: underline;
             color: var(--purple-primary);
         }
-        @include lt-lg {
+        @include max-pc-low {
             display: none;
         }
     }

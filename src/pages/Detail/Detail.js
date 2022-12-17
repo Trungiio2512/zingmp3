@@ -11,13 +11,7 @@ import { Media } from "~/layouts/components/Media";
 import Thumb from "~/layouts/components/Thumb";
 import styles from "./Detail.module.scss";
 import Artist from "~/layouts/components/Artist";
-import {
-    checkSongInPlaylist,
-    currentIndexSongPlay,
-    getTotalTimePlaylist,
-    playlistCanPlay,
-    setFollower,
-} from "~/funtion";
+import { checkHasInList, getCurrentIndex, getTotalTimePlaylist, playlistCanPlay, setFollower } from "~/funtion";
 import httpRequest from "~/untils/httpRequest";
 import Loading from "~/layouts/components/Loading";
 import {
@@ -36,7 +30,7 @@ const cx = classNames.bind(styles);
 
 function Detail() {
     const location = useLocation();
-    const { id, play } = location.state;
+    const { id, play, title } = location.state;
 
     const dispatch = useDispatch();
 
@@ -51,8 +45,6 @@ function Detail() {
     const playlistSong = useSelector((state) => state.player.playlistSong);
     const currentIndexSong = useSelector((state) => state.player.currentIndexSong);
 
-    // console.log(id);
-
     const handleSong = async (song, playlist) => {
         if (song?.isWorldWide) {
             if (idPlaylist !== id) {
@@ -61,7 +53,7 @@ function Detail() {
                 dispatch(setPlaylistSong(newPlaylist));
                 dispatch(setInfoCurrentSong(song));
                 dispatch(setSongId(song?.encodeId));
-                const songIndex = await currentIndexSongPlay(song?.encodeId, newPlaylist);
+                const songIndex = await getCurrentIndex(song?.encodeId, newPlaylist);
                 dispatch(setCurrentIndexSong(songIndex));
                 // console.log(playlistRamdom(newPlaylist));
             } else {
@@ -70,7 +62,7 @@ function Detail() {
                 } else {
                     dispatch(setInfoCurrentSong(song));
                     dispatch(setSongId(song?.encodeId));
-                    const songIndex = await currentIndexSongPlay(song?.encodeId, playlistSong);
+                    const songIndex = await getCurrentIndex(song?.encodeId, playlistSong);
                     dispatch(setCurrentIndexSong(songIndex));
                 }
             }
@@ -96,7 +88,7 @@ function Detail() {
 
     const handlePlaySong = async () => {
         if (idPlaylist === data?.encodeId) {
-            if (checkSongInPlaylist(songId, playlistSong)) {
+            if (checkHasInList(songId, playlistSong)) {
                 dispatch(setPlaySong(!isPlaySong));
             } else {
                 dispatch(setInfoCurrentSong(playlistSong[currentIndexSong]));
@@ -108,10 +100,9 @@ function Detail() {
     };
 
     useEffect(() => {
-        document.title = data?.title;
-    }, [data?.title]);
+        document.title = title;
+    }, [title]);
 
-    console.log(id, play);
     useEffect(() => {
         setLoading(true);
         const fetchApi = async () => {
@@ -153,29 +144,25 @@ function Detail() {
         return <div>bi loi</div>;
     } else {
         return (
-            <div className={cx("detail")}>
-                <main className={cx("media")}>
-                    <div className={cx("media-left")}>
+            <div className={cx("wrapper")}>
+                <main className={cx("detail")}>
+                    <div className={cx("detail-left")}>
                         <div
-                            className={cx("media-left__thumb", {
+                            className={cx("detail-left__thumb", {
                                 isPlay:
-                                    isPlaySong &&
-                                    idPlaylist === data?.encodeId &&
-                                    checkSongInPlaylist(songId, playlistSong),
+                                    isPlaySong && idPlaylist === data?.encodeId && checkHasInList(songId, playlistSong),
                             })}
                         >
                             <Thumb
                                 isPlay={
-                                    isPlaySong &&
-                                    idPlaylist === data?.encodeId &&
-                                    checkSongInPlaylist(songId, playlistSong)
+                                    isPlaySong && idPlaylist === data?.encodeId && checkHasInList(songId, playlistSong)
                                 }
                                 title={data?.title}
                                 thumbNail={data?.thumbnailM}
                                 onClick={() => handlePlaySong()}
                             />
                         </div>
-                        <div className={cx("media-left__content")}>
+                        <div className={cx("detail-left__content")}>
                             <div className={cx("content-top")}>
                                 <h4 className={cx("title")}>{data?.title}</h4>
                                 <p className={cx("release")}>Cập nhật: {}</p>
@@ -194,7 +181,7 @@ function Detail() {
                                     >
                                         phát ngẫu nhiên
                                     </Button>
-                                ) : isPlaySong && checkSongInPlaylist(songId, playlistSong) ? (
+                                ) : isPlaySong && checkHasInList(songId, playlistSong) ? (
                                     <Button
                                         primary
                                         className={cx("actions-btn")}
@@ -225,7 +212,7 @@ function Detail() {
                             </div>
                         </div>
                     </div>
-                    <div className={cx("media-right")}>
+                    <div className={cx("detail-right")}>
                         {data?.song?.items &&
                             data?.song?.items.map((item, index) => (
                                 <Media
@@ -241,7 +228,7 @@ function Detail() {
                                     data={item}
                                 />
                             ))}
-                        <div className={cx("media-right__info")}>
+                        <div className={cx("detail-right__info")}>
                             <span>{`${data?.song?.total} bài hát`}</span>
                             <span>
                                 <FontAwesomeIcon icon={faCircle} />

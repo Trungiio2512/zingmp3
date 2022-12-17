@@ -1,3 +1,4 @@
+@use "../../scss/media-queries.scss" as *;
 @mixin dfCenterFull {
     display: flex;
     align-items: center;

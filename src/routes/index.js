@@ -20,6 +20,7 @@ const publicRoute = [
     { path: "/nghe-si/:nameArtist", component: DetailArtist },
     { path: "/:nameArtist", component: DetailArtist },
     { path: "/:video-clip/:nameVideo/:id", component: Mv, layout: null },
+    // { path: "/*", component: <div>chưa có thực hiện </div> },
 ];
 
 export { publicRoute };

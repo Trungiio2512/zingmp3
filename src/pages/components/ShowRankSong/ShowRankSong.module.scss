@@ -6,6 +6,9 @@
         align-items: center;
         justify-content: center;
     }
+
+    &-chart {
+    }
 }
 
 .heading {
@@ -18,5 +21,28 @@
         text-transform: capitalize;
         color: var(--white);
         margin-right: 6px;
+    }
+}
+
+//chart
+.chart {
+    margin: 32px 0;
+    overflow: hidden;
+    border-radius: 8px;
+    position: relative;
+    &-bg {
+        width: 100%;
+        object-fit: contain;
+    }
+
+    &-bg-blur {
+        inset: 0;
+        position: absolute;
+        background-image: linear-gradient(to bottom, rgba(65, 22, 54, 0.2), rgb(65, 22, 54, 0.8));
+    }
+
+    &-content {
+        position: absolute;
+        inset: 0;
     }
 }

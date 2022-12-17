@@ -4,7 +4,7 @@ import { Grid, GridItem } from "~/components/Grid";
 import styles from "./Tab.module.scss";
 import { Media } from "~/layouts/components/Media";
 import { useState } from "react";
-import { currentIndexSongPlay, playlistCanPlay, playlistRamdom } from "~/funtion";
+import { getCurrentIndex, playlistCanPlay, playlistRamdom } from "~/funtion";
 import { useDispatch, useSelector } from "react-redux";
 import {
     setCurrentIndexSong,
@@ -21,8 +21,10 @@ function Tab1({ data, id }) {
     const dispatch = useDispatch();
 
     const [active, setActive] = useState(1);
-    const [songs, setSongs] = useState(data?.vPop);
-    const [albums, setAlbum] = useState(data.album);
+    const [all, setAll] = useState(data?.all || null);
+    const [vPop, setVPop] = useState(data?.vPop || null);
+    const [others, setOthers] = useState(data?.others || null);
+    const [albums, setAlbum] = useState(data?.album || null);
 
     const idPlaylist = useSelector((state) => state.player.playlistIdSong);
     const songId = useSelector((state) => state.player.songId);
@@ -41,7 +43,7 @@ function Tab1({ data, id }) {
                 dispatch(setInfoCurrentSong(song));
                 dispatch(setSongId(song?.encodeId));
                 dispatch(setCurrentTimeSong(0));
-                const songIndex = await currentIndexSongPlay(song?.encodeId, newPlaylist);
+                const songIndex = await getCurrentIndex(song?.encodeId, newPlaylist);
                 dispatch(setCurrentIndexSong(songIndex));
                 // console.log(playlistRamdom(newPlaylist));
             } else {
@@ -51,7 +53,7 @@ function Tab1({ data, id }) {
                     dispatch(setInfoCurrentSong(song));
                     dispatch(setSongId(song?.encodeId));
                     dispatch(setCurrentTimeSong(0));
-                    const songIndex = await currentIndexSongPlay(song?.encodeId, playlistSong);
+                    const songIndex = await getCurrentIndex(song?.encodeId, playlistSong);
                     dispatch(setCurrentIndexSong(songIndex));
                 }
             }
@@ -62,39 +64,84 @@ function Tab1({ data, id }) {
     return (
         <div className={cx("tab1")}>
             <div className={cx("tab1-control")}>
-                <Button
-                    className={cx("tab1-control__btn", active === 1 ? "tab1-control__btn--active" : "")}
-                    onClick={() => handleChangeTab(1)}
-                >
-                    Bài hát
-                </Button>
-
-                <Button
-                    className={cx("tab1-control__btn", active === 2 ? "tab1-control__btn--active" : "")}
-                    onClick={() => handleChangeTab(2)}
-                >
-                    Album
-                </Button>
+                {all && (
+                    <Button
+                        className={cx("tab1-control__btn", active === 1 ? "tab1-control__btn--active" : "")}
+                        onClick={() => handleChangeTab(1)}
+                    >
+                        Tất cả
+                    </Button>
+                )}
+                {vPop && (
+                    <Button
+                        className={cx("tab1-control__btn", active === 2 ? "tab1-control__btn--active" : "")}
+                        onClick={() => handleChangeTab(2)}
+                    >
+                        vpop
+                    </Button>
+                )}
+                {others && (
+                    <Button
+                        className={cx("tab1-control__btn", active === 4 ? "tab1-control__btn--active" : "")}
+                        onClick={() => handleChangeTab(4)}
+                    >
+                        Khác
+                    </Button>
+                )}
+                {albums && (
+                    <Button
+                        className={cx("tab1-control__btn", active === 3 ? "tab1-control__btn--active" : "")}
+                        onClick={() => handleChangeTab(3)}
+                    >
+                        Album
+                    </Button>
+                )}
             </div>
             <div className={cx("tab1-body")}>
-                <div className={cx("tab1-container", active === 1 ? "tab1-container--active" : "")}>
-                    <Grid>
-                        {songs.map((song, index) => (
-                            <GridItem c={12} m={6} l={4} key={index}>
-                                <Media onClick={() => handlePlaySong(song, songs)} small song right data={song} />
-                            </GridItem>
-                        ))}
-                    </Grid>
-                </div>
-                {/* <div className={cx("tab1-container", active === 2 ? "tab1-container--active" : "")}>
-                    <Grid>
-                        {albums.map((album, index) => (
-                            <GridItem c={12} m={6} l={4} key={index}>
-                                <Media small album right data={album} />
-                            </GridItem>
-                        ))}
-                    </Grid>
-                </div> */}
+                {all && (
+                    <div className={cx("tab1-container", active === 1 ? "tab1-container--active" : "")}>
+                        <Grid>
+                            {all.map((song, index) => (
+                                <GridItem c={12} m={6} l={4} key={index}>
+                                    <Media onClick={() => handlePlaySong(song, all)} small song right data={song} />
+                                </GridItem>
+                            ))}
+                        </Grid>
+                    </div>
+                )}
+                {vPop && (
+                    <div className={cx("tab1-container", active === 2 ? "tab1-container--active" : "")}>
+                        <Grid>
+                            {vPop.map((song, index) => (
+                                <GridItem c={12} m={6} l={4} key={index}>
+                                    <Media onClick={() => handlePlaySong(song, vPop)} small song right data={song} />
+                                </GridItem>
+                            ))}
+                        </Grid>
+                    </div>
+                )}
+                {albums && (
+                    <div className={cx("tab1-container", active === 3 ? "tab1-container--active" : "")}>
+                        <Grid>
+                            {albums.map((album, index) => (
+                                <GridItem c={12} m={6} l={4} key={index}>
+                                    <Media small album right data={album} />
+                                </GridItem>
+                            ))}
+                        </Grid>
+                    </div>
+                )}
+                {others && (
+                    <div className={cx("tab1-container", active === 4 ? "tab1-container--active" : "")}>
+                        <Grid>
+                            {others.map((song, index) => (
+                                <GridItem c={12} m={6} l={4} key={index}>
+                                    <Media onClick={() => handlePlaySong(song, others)} small song right data={song} />
+                                </GridItem>
+                            ))}
+                        </Grid>
+                    </div>
+                )}
             </div>
         </div>
     );

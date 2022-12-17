@@ -1,46 +1,6 @@
 @use "../../scss/media-queries.scss" as *;
+
 .detail {
-    @include lt-lg {
-        .media {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .actions,
-        .media-left {
-            display: flex;
-        }
-
-        .media-left {
-            width: 100%;
-        }
-
-        .media-right {
-            margin-top: 32px;
-            margin-left: 0;
-        }
-
-        .media-left__thumb {
-            width: 200px;
-            height: 200px;
-            margin-right: 20px;
-        }
-        .content-top {
-            margin-top: 0;
-            text-align: left;
-        }
-
-        .actions-level {
-            margin-top: 0 !important;
-        }
-
-        .actions-btn {
-            margin: 0 8px 0 0 !important;
-        }
-    }
-}
-
-.media {
     margin-bottom: 32px;
 
     &-left {
@@ -53,20 +13,53 @@
         margin-left: 330px;
     }
 }
-.media-left__thumb.isPlay {
-    border-radius: 50%;
-    overflow: hidden;
-    animation: spinner 3s linear infinite;
+
+.detail {
+    @include max-mobile-max-pc-low {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
-.media-left__thumb {
-    transition: all 0.2s;
+.detail-left {
+    &__thumb.isPlay {
+        border-radius: 50%;
+        overflow: hidden;
+        animation: spinner 3s linear infinite;
+    }
+
+    &__thumb {
+        transition: all 0.2s;
+        flex-shrink: 0;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
 }
 
-.media-left__content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.detail-left {
+    @include max-mobile-max-pc-low {
+        display: flex;
+        width: 100%;
+        &__thumb {
+            width: 200px;
+            height: 200px;
+            margin-right: 20px;
+        }
+    }
+
+    @include mobile {
+        width: 100%;
+        margin-bottom: 24px;
+        &__thumb {
+            margin: auto;
+            width: 400px;
+            height: 400px;
+        }
+    }
 }
 
 .content-top {
@@ -79,11 +72,6 @@
         font-size: 2rem;
         text-transform: capitalize;
     }
-    .release {
-    }
-
-    .artists {
-    }
 
     .release,
     .artists,
@@ -92,6 +80,16 @@
         font-size: 1.2rem;
         font-weight: 400;
         line-height: 2rem;
+    }
+}
+
+.content-top {
+    @include max-mobile-max-pc-low {
+        margin-top: 0;
+        text-align: left;
+    }
+
+    @include mobile {
     }
 }
 .actions {
@@ -115,20 +113,42 @@
     }
 }
 
-//right {
-.media-right__info {
-    font-size: 1.2rem;
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-    span {
-        &:nth-child(2) {
-            font-size: 0.6rem;
-            margin: 0 6px;
+.actions {
+    @include max-mobile-max-pc-low {
+        display: flex;
+
+        .actions-level {
+            margin-top: 0 !important;
+        }
+
+        .actions-btn {
+            margin: 0 8px 0 0 !important;
         }
     }
 }
 
+//right
+
+.detail-right {
+    .detail-right__info {
+        font-size: 1.2rem;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        span {
+            &:nth-child(2) {
+                font-size: 0.6rem;
+                margin: 0 6px;
+            }
+        }
+    }
+}
+.detail-right {
+    @include max-pc-low {
+        margin-top: 32px;
+        margin-left: 0;
+    }
+}
 // artists
 
 @keyframes spinner {
