@@ -35,7 +35,7 @@ import {
     setSongId,
     setSongSrc,
     setVolumeSong,
-} from "~/redux/playerSlice";
+} from "~/redux/PlayerSlice";
 import styles from "./Player.module.scss";
 import { getTimeSong } from "~/funtion";
 import Input from "~/components/Input";
@@ -48,7 +48,7 @@ function Player({ data }) {
 
     const [showMvAndPlay, setShowMvAndPlay] = useState(false);
     const [showListMusicLove, setShowListMusicLove] = useState(false);
-    const [isLoadingSong, setLoadingSong] = useState(false);
+    // const [isLoadingSong, setLoadingSong] = useState(false);
 
     const isPlaySong = useSelector((state) => state.player.isPlaySong);
     const isMuted = useSelector((state) => state.player.isMuted);
