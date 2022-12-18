@@ -10,7 +10,7 @@ const getHome = createAsyncThunk("app/getHome", async () => {
     return res.data?.items;
 });
 
-const appSlice = createSlice({
+const AppSlice = createSlice({
     name: "app",
     initialState: {
         home: {
@@ -42,5 +42,5 @@ const appSlice = createSlice({
     },
 });
 export { getHome };
-export const { setDataHome, setDataChart } = appSlice.actions;
-export default appSlice.reducer;
+export const { setDataHome, setDataChart } = AppSlice.actions;
+export default AppSlice;

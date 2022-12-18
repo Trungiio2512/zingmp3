@@ -20,4 +20,4 @@ const MvSlice = createSlice({
     },
 });
 export const { setVideoId, setTitleVideo, setLinkVideo } = MvSlice.actions;
-export default MvSlice.reducer;
+export default MvSlice;

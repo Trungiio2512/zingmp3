@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import PlayerReducer from "./playerSlice";
-import MvReducer from "./mvSlice";
-import AppReducer from "./appSlice";
+import PlayerSlice from "./playerSlice";
+import MvSlice from "./mvSlice";
+import AppSlice from "./appSlice";
 const store = configureStore({
     reducer: {
-        player: PlayerReducer,
-        mv: MvReducer,
-        app: AppReducer,
+        player: PlayerSlice.reducer,
+        mv: MvSlice.reducer,
+        app: AppSlice.reducer,
     },
 });
 
