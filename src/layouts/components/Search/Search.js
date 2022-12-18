@@ -11,7 +11,7 @@ import Wrapper from "~/components/Wrapper";
 import httpRequest from "~/untils/httpRequest";
 import SearchResult from "./SearchResult";
 import { useDispatch } from "react-redux";
-import { setCurrentTimeSong, setInfoCurrentSong, setSongId } from "~/redux/PlayerSlice";
+import { setCurrentTimeSong, setInfoCurrentSong, setSongId } from "~/redux/playerSlice";
 const cx = classNames.bind(styles);
 
 function Search() {

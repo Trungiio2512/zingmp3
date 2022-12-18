@@ -14,7 +14,7 @@ import {
     setPlaylistSong,
     setPlaySong,
     setSongId,
-} from "~/redux/PlayerSlice";
+} from "~/redux/playerSlice";
 const cx = classNames.bind(styles);
 
 function Tab1({ data, id }) {

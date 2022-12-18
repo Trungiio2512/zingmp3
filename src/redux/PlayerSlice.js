@@ -87,4 +87,4 @@ export const {
     setPlaylistRandomSong,
 } = PlayerSlice.actions;
 
-export default PlayerSlice.reducer;
+export default PlayerSlice;

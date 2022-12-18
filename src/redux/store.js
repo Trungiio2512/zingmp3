@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import PlayerSlice from "./PlayerSlice";
+import PlayerSlice from "./playerSlice";
 import MvSlice from "./mvSlice";
 import AppSlice from "./appSlice";
 const store = configureStore({

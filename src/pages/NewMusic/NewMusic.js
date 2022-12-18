@@ -16,7 +16,7 @@ import {
     setPlaylistSong,
     setPlaySong,
     setSongId,
-} from "~/redux/PlayerSlice";
+} from "~/redux/playerSlice";
 
 function NewMusic() {
     const [isLoading, setLoading] = useState(null);
