@@ -24,7 +24,7 @@ import {
     setPlaySong,
     setRandomSong,
     setSongId,
-} from "~/redux/playerSlice";
+} from "~/redux/PlayerSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, GridItem } from "~/components/Grid";
 import { getCurrentIndex, playlistCanPlay } from "~/funtion";

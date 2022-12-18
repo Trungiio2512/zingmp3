@@ -35,7 +35,7 @@ import {
     setSongId,
     setSongSrc,
     setVolumeSong,
-} from "~/redux/playerSlice";
+} from "~/redux/PlayerSlice";
 import styles from "./Player.module.scss";
 import { getTimeSong } from "~/funtion";
 import Input from "~/components/Input";

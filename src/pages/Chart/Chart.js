@@ -13,7 +13,7 @@ import {
     setPlaylistSong,
     setPlaySong,
     setSongId,
-} from "~/redux/playerSlice";
+} from "~/redux/PlayerSlice";
 import { getCurrentIndex, playlistCanPlay } from "~/funtion";
 import { setDataChart } from "~/redux/appSlice";
 function Chart() {

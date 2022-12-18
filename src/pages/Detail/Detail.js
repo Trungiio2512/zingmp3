@@ -23,7 +23,7 @@ import {
     setPlaySong,
     setRandomSong,
     setSongId,
-} from "~/redux/playerSlice";
+} from "~/redux/PlayerSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const cx = classNames.bind(styles);
